@@ -5,7 +5,7 @@
 # Authors:
 #   Filip Smola
 
-remote="robot:maker@ev3dev:/home/robot/robot"
+remote="robot@ev3dev:/home/robot/robot"
 files="start.sh ./test"
 
-scp -r $directories $remote
+scp -r $files $remote

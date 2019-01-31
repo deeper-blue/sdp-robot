@@ -24,3 +24,15 @@ The robot program entry point is the `start.sh` file.
 To execute a python file, change the contents of the start script to run the desired file.
 
 `TODO: fix direct execution of python files`
+
+## Using Deployment Scripts
+There are two reployment scripts in the root of the repository - `deploy.sh` and `clean.sh`.
+
+### `deploy.sh`
+This script copies `start.sh` and the `test` directory into `/home/robot/robot` on the EV3 brick (it has to be connected via USB).
+Use this script to copy the robot code onto the brick.
+When you add a file or directory that you want to be deployed onto the brick, you need to add it to the `files` space-separated list in `deploy.sh`.
+
+### `clean.sh`
+This script removes all contents of the `/home/robot/robot` directory on the EV3 brick.
+Use this script to clean the contents before you deploy, so no old files are left there.

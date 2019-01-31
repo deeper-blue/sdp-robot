@@ -5,4 +5,4 @@
 # Authors:
 #   Filip Smola
 
-python3 test/basic_movement.py
+python3 test/movement_accuracy.py

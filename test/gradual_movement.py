@@ -39,6 +39,16 @@ valid_speeds = [z for z in range(min_v,max_v + 1) if z%5 == 0]
 # Wheel circumference
 circ = 12.9 # in cm
 
+# Linear guide function
+def linear_guide(target_distance, x):
+    # Return zero outside of supported range
+    if x < 0:
+        return 0
+    if x > target_distance:
+        return 0
+    
+    return - math.fabs(- (2 * max_v / target_distance) * (x - (target_distance / 2))) + max_v
+
 # Move the motor gradually by relative distance (in cm)
 #TODO support other than TwinMotors
 def move_gradual(motor, rel_dist):
@@ -64,7 +74,7 @@ def move_gradual(motor, rel_dist):
         d = math.fabs(d)
 
         # Compute desired speed
-        desired = - math.fabs(- (2 * max_v / rel_dist) * d + max_v) + max_v
+        desired = linear_guide(rel_pos, d)
 
         # Select least greater valid speed or min_v
         desired = next((x for x in valid_speeds if x > desired), min_v)

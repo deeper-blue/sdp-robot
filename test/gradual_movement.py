@@ -28,8 +28,13 @@ class TwinMotors:
 # Position polling delay (in s)
 poll_t = 0.1
 
-# Maximum speed (in %)
+# Maximum and minimum speed (in %)
 max_v = 30
+min_v = 10
+
+# Valid speeds set (multiples of 5 from min_v to max_v)
+# Note: assuming this set is in increasing order
+valid_speeds = [z for z in range(min_v,max_v + 1) if z%5 == 0]
 
 # Wheel circumference
 circ = 12.9 # in cm
@@ -61,14 +66,10 @@ def move_gradual(motor, rel_dist):
         # Compute desired speed
         desired = - math.fabs(- (2 * max_v / rel_dist) * d + max_v) + max_v
 
-        # Round the result
-        desired = math.ceil(desired / 5) * 5
+        # Select least greater valid speed or min_v
+        desired = next((x for x in valid_speeds if x > desired), min_v)
 
-        # Don't Stop Me Now
-        if desired < 20:
-            desired = 20
-
-        # Reintroduce sign
+        # Reintroduce direction
         desired = direction * desired
 
         # Set desired speed

@@ -1,5 +1,5 @@
-# Runs the motors gradually for 25 cm forward and back.
 # Used to test gradual movement scheme.
+# Runs the motors gradually first for 25 cm forward and back, then for 5 cm.
 #
 # Authors:
 #   Filip Smola
@@ -107,5 +107,9 @@ def iteration():
     # Move forward by 25 cm and back
     move_gradual(twins, -25)
     move_gradual(twins, 25)
+
+    # Move forward by 5 cm and back
+    move_gradual(twins, -5)
+    move_gradual(twins, 5)
 
 iteration()

@@ -1,5 +1,5 @@
-# Used to test gradual movement scheme.
 # Runs the motors gradually first for 25 cm forward and back, then for 5 cm.
+# Used to test gradual movement scheme and how it adapts to long and short distances.
 #
 # Authors:
 #   Filip Smola
@@ -29,18 +29,25 @@ class TwinMotors:
 poll_t = 0.1
 
 # Maximum and minimum speed (in %)
-max_v = 30
-min_v = 10
-
-# Valid speeds set (multiples of 5 from min_v to max_v)
-# Note: assuming this set is in increasing order
-valid_speeds = [z for z in range(min_v,max_v + 1) if z%5 == 0]
+max_v_long = 70
+max_v_short = 40
+min_v = 20
 
 # Wheel circumference
 circ = 12.9 # in cm
 
+# Distance considered long (in degrees)
+long_distance = 15 / circ * 360
+
+# Valid speeds set (multiples of 5 from min_v to max_v)
+# Note: assuming this set is in increasing order
+valid_speeds = [z for z in range(min_v,max_v_long + 1) if z%5 == 0]
+
 # Linear guide function
 def linear_guide(target_distance, x):
+    # Select max speed
+    max_v = max_v_long if (target_distance >= long_distance) else max_v_short
+
     # Return zero outside of supported range
     if x < 0:
         return 0

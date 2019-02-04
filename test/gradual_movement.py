@@ -120,13 +120,15 @@ def iteration():
     # Get motors and twin them
     motorA = ev3.LargeMotor('outA')
     motorA.connected
+    motorA.stop_action = motorA.STOP_ACTION_BRAKE
     motorB = ev3.LargeMotor('outB')
     motorB.connected
+    motorA.stop_action = motorA.STOP_ACTION_BRAKE
     twins = TwinMotors(motorA, motorB)
 
     # Move forward by 25 cm and back
-    move_gradual(twins, -25)
-    move_gradual(twins, 25)
+    move_gradual(twins, -58)
+    move_gradual(twins, 58)
 
     # Move forward by 5 cm and back
     move_gradual(twins, -5)

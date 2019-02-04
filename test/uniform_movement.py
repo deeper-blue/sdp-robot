@@ -25,13 +25,17 @@ class TwinMotors:
         self.motorA.run_to_rel_pos(position_sp = position, speed_sp = speed)
         self.motorB.run_to_rel_pos(position_sp = position, speed_sp = speed)
 
+    def wait_while(self, state):
+        self.motorA.wait_while('running')
+        self.motorB.wait_while('running')
+
     def stop(self):
         self.motorA.stop()
         self.motorB.stop()
 
 # Maximum and minimum speed (in %)
-max_v_long = 70
-max_v_short = 40
+max_v_long = 300
+max_v_short = 100
 
 # Wheel circumference
 circ = 12.9 # in cm
@@ -48,10 +52,11 @@ def move_uniform(motor, rel_dist):
     rel_pos = rel_dist / circ * 360
 
     # Pick speed
-    max_v = max_v_long if (target_distance >= long_distance) else max_v_short
+    max_v = max_v_long if (math.fabs(rel_pos) >= long_distance) else max_v_short
 
     # Run motor for computed distance at max speed
     motor.run_to_rel_pos(rel_pos, max_v)
+    motor.wait_while('running')
 
 def iteration():
     print("iteration entry")
@@ -63,12 +68,12 @@ def iteration():
     motorB.connected
     twins = TwinMotors(motorA, motorB)
 
-    # Move forward by 25 cm and back
-    move_uniform(twins, -25)
-    move_uniform(twins, 25)
+    # Move forward by 50 cm and back
+    move_uniform(twins, -50)
+    move_uniform(twins, 50)
 
-    # Move forward by 5 cm and back
-    move_uniform(twins, -5)
-    move_uniform(twins, 5)
+    move_uniform(twins, -10)
+    move_uniform(twins, 10)
 
+ev3.Sound.speak('Do not interfere with the robot. Testing in progress.').wait()
 iteration()

@@ -7,23 +7,7 @@
 import ev3dev.ev3 as ev3
 import time
 import math
-
-# Abstraction of two motors to be moved the same (motorA is the Main)
-class TwinMotors:
-    def __init__(self, motorA, motorB):
-        self.motorA = motorA
-        self.motorB = motorB
-
-    def get_position(self):
-        return self.motorA.position
-
-    def run_direct(self, duty_cycle):
-        self.motorA.run_direct(duty_cycle_sp = duty_cycle)
-        self.motorB.run_direct(duty_cycle_sp = duty_cycle)
-
-    def stop(self):
-        self.motorA.stop()
-        self.motorB.stop()
+import motor
 
 # Position polling delay (in s)
 poll_t = 0.1
@@ -70,7 +54,6 @@ def sine_guide(target_distance, x):
     return max_v * math.sin(math.pi * x / target_distance)
 
 # Move the motor gradually by relative distance (in cm)
-#TODO support other than TwinMotors
 def move_gradual(motor, rel_dist):
     print("move_gradual entry")
 
@@ -117,16 +100,10 @@ def move_gradual(motor, rel_dist):
 def iteration():
     print("iteration entry")
 
-    # Get motors and twin them
-    motorA = ev3.LargeMotor('outA')
-    motorA.connected
-    motorA.stop_action = motorA.STOP_ACTION_BRAKE
-    motorB = ev3.LargeMotor('outB')
-    motorB.connected
-    motorA.stop_action = motorA.STOP_ACTION_BRAKE
-    twins = TwinMotors(motorA, motorB)
+    # Get twin motors
+    twins = motor.Twin(motor.portA, motor.portB)
 
-    # Move forward by 25 cm and back
+    # Move forward by 58 cm and back
     move_gradual(twins, -58)
     move_gradual(twins, 58)
 

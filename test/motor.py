@@ -27,6 +27,9 @@ class Twin:
         # Brake on stop
         self.motor.stop_action = self.motor.STOP_ACTION_BRAKE
 
+        # Set motor name
+        self.name = "[%s,%s]" % (main, slave)
+
     # Whether both motors are connected
     def connected(self):
         return self.main.connected and self.slave.connected
@@ -67,6 +70,9 @@ class Single:
 
         # Brake on stop
         self.motor.stop_action = self.motor.STOP_ACTION_BRAKE
+
+        # Set motor name
+        self.name = "[%s]" % motor
 
     # Whether motor is connected
     def connected(self):

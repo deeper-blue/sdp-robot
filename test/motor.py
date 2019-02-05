@@ -25,7 +25,8 @@ class Twin:
         self.slave = ev3.LargeMotor(slave)
 
         # Brake on stop
-        self.motor.stop_action = self.motor.STOP_ACTION_BRAKE
+        self.main.stop_action = self.main.STOP_ACTION_BRAKE
+        self.slave.stop_action = self.slave.STOP_ACTION_BRAKE
 
         # Set motor name
         self.name = "[%s,%s]" % (main, slave)

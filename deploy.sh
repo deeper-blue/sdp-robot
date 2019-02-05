@@ -6,6 +6,6 @@
 #   Filip Smola
 
 remote="robot@ev3dev:/home/robot/robot"
-files="start.sh ./test"
+files="start.sh stop.py ./test"
 
 scp -r $files $remote

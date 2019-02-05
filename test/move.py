@@ -117,7 +117,7 @@ class Uniform:
     # Move a motor a set linear distance (in cm)
     def move(self, motor, distance):
         # Pick speed
-        speed = self.speed_long if (distance >= self.long_distance) else self.speed_short
+        speed = self.speed_long if (math.fabs(distance) >= self.long_distance) else self.speed_short
 
         print("Moving %s uniformly over %f cm at speed %d" % (motor.name, distance, speed))
 

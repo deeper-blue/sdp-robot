@@ -5,4 +5,4 @@
 # Authors:
 #   Filip Smola
 
-python3 test/gradual_movement.py
+python3 test/demo_test_run.py

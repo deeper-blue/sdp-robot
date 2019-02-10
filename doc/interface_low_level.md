@@ -182,6 +182,10 @@ Turns the electromagnet off.
 ## Notes
 - Error increment factors are based on testing.
 - Noted state does not include the internal state like maximum speed or wheel circumference.
+- There is redundancy between the functions "go_to_position" and "go_to_cell" if we decide to include the buffer as valid 
+cells. This, therefore, means that we may just consider implementing the function "go_to_cell". This would be more 
+computationally complex as we will have to take into account things like the distance between the end of the final column 
+and the start of the buffer. A possible solution to this could be; "if column > 8: config.buffer_offset".
 
 ## TODO
 - Where is the origin of the coordinate system? At A1 of the board?

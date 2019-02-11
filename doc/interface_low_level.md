@@ -36,19 +36,6 @@ On reset button press, stops the arch, sets internal position to the preconfigur
 - Internal position is set to preconfigured edge position.
 - Expected error is set to zero.
 
-### `on_button_press()`
-Handles unintentional reset button presses.
-Sets internal position to the preconfigured edge position and resets expected error to zero.
-
-**Assumptions**:
-
-- *None*
-
-**Effects**:
-
-- Internal position is set to preconfigured edge position.
-- Expected error is set to zero.
-
 ## Platform
 Public state:
 
@@ -81,19 +68,6 @@ On reset button press, stops the platform, sets internal position to the preconf
 **Effects**:
 
 - The physical platform moves to the minimum row edge of the active area.
-- Internal position is set to preconfigured edge position.
-- Expected error is set to zero.
-
-### `on_button_press()`
-Handles unintentional reset button presses.
-Sets internal position to the preconfigured edge position and resets expected error to zero.
-
-**Assumptions**:
-
-- *None*
-
-**Effects**:
-
 - Internal position is set to preconfigured edge position.
 - Expected error is set to zero.
 
@@ -159,5 +133,4 @@ Turns the electromagnet off.
 
 ## TODO
 - What is sufficiently close? Accurate to 1% of the entire rail length?
-- Do we want to handle unintentional reset button presses?
 - Which side does the platform reset on?

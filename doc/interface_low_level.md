@@ -155,9 +155,9 @@ Turns the electromagnet off.
 - Error increment factors are based on testing.
 - Noted state does not include the internal state like maximum speed or wheel circumference.
 - Space between board and buffer could be handled by code similar to `if column > 7: target += config.buffer_offset`.
+- Origin of the coordinate system is at the lower left corner of A1, with positive axes going right, forward and up.
 
 ## TODO
-- Where is the origin of the coordinate system? At A1 of the board?
 - What is sufficiently close? Accurate to 1% of the entire rail length?
 - Do we want to handle unintentional reset button presses?
 - Which side does the platform reset on?

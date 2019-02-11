@@ -71,6 +71,20 @@ On reset button press, stops the platform, sets internal position to the preconf
 - Internal position is set to preconfigured edge position.
 - Expected error is set to zero.
 
+### `centre()`
+Moves the platform into the centre of the top rail.
+Serves to even the load on the arch motors.
+
+**Assumptions**:
+
+- *None*
+
+**Effects**:
+
+- The physical platform moves to the middle of the top rail.
+- Internal position is updated by the actual distance moved, with the result being "sufficiently close" to the centre of the top rail.
+- Expected error is incremented by a factor of the actual distance moved.
+
 ## Grabber
 Public state:
 

@@ -144,3 +144,4 @@ Turns the electromagnet off.
 - Noted state does not include the internal state like maximum speed or wheel circumference.
 - Space between board and buffer could be handled by code similar to `if column > 7: target += config.buffer_offset`.
 - Origin of the coordinate system is at the lower left corner of A1, with positive axes going right, forward and up.
+- Cell coordinates are represented by column-row pairs containing zero-based indices (e.g. C5 is `(2,4)`).

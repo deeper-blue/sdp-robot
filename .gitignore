@@ -1,2 +1,5 @@
 # Vim buffer files
 *.swp
+
+# Python cache
+__pycache__

@@ -1,7 +1,11 @@
 # This file is used to hold the different measurements of the chess board, which will be used in the implementation of the robot.
 # Allows us to abstract from the main program.
+#
 # Author(s):
-#    Jeremy Scott
+#   Jeremy Scott
+#   Filip Smola
+
+#--- Start Configuration
 
 # The length of one side of a square on the chess board in cm
 square_length = 3.8
@@ -26,3 +30,33 @@ wheel_circ = 12.8
 
 # Grabber height in cm
 grabber_height = 34
+
+#--- End Configuration
+
+#--- Start Processing
+
+# Cell column to cm along bottom rail
+def cell_column_cm(n):
+    # Naive position
+    cm = n * square_length
+
+    # Adjust for buffer offset
+    if n > 7:
+        cm += buffer_offset
+
+    return cm
+
+# Cell row to cm along the top rail
+def cell_row_cm(n):
+    return n * square_length
+
+# Arch reset position is its maximum position
+arch_reset_position = row_length
+
+# Platform reset position is origin
+platform_reset_position = 0
+
+# Centre of top rail
+top_centre = column_length / 2
+
+#--- End Processing

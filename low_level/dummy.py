@@ -151,3 +151,8 @@ class Grabber:
     # Print state summary
     def print_state(self):
         print("Dummy Grabber: up = %s; on = %s" % ("True" if self.up else "False", "true" if self.on else "false"))
+
+# Instantiate the component objects
+arch = Arch()
+platform = Platform()
+grabber = Grabber()

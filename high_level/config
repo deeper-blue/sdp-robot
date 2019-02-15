@@ -1,0 +1,73 @@
+# This file is used to hold the different cells in the buffer for each piece
+# Allows us to abstract from the main program.
+#
+# Author(s):
+#   Stewart Wilson
+
+#--- Start Configuration
+def select_buffer_cell(piece):
+    if(piece=="white_rook0"):
+        return ('I',0)
+    elif(piece=="white_knight0"):
+        return ('I',1)
+    elif(piece=="white_bishop0"):
+        return ('I',2)
+    elif(piece=="white_queen"):
+        return ('I',3)
+    elif(piece=="white_king"):
+        return ('I',4)
+    elif(piece=="white_bishop1"):
+        return ('I',5)
+    elif(piece=="white_knight1"):
+        return ('I',6)
+    elif(piece=="white_rook1"):
+        return ('I',7)
+    elif(piece=="white_pawn0"):
+        return ('J',0)
+    elif(piece=="white_pawn1"):
+        return ('J',1)
+    elif(piece=="white_pawn2"):
+        return ('J',2)
+    elif(piece=="white_pawn3"):
+        return ('J',3)
+    elif(piece=="white_pawn4"):
+        return ('J',4)
+    elif(piece=="white_pawn5"):
+        return ('J',5)
+    elif(piece=="white_pawn6"):
+        return ('J',6)
+    elif(piece=="white_pawn7"):
+        return ('J',7)
+    elif(piece=="black_pawn0"):
+        return ('K',0)
+    elif(piece=="white_pawn1"):
+        return ('K',1)
+    elif(piece=="white_pawn2"):
+        return ('K',2)
+    elif(piece=="white_pawn3"):
+        return ('K',3)
+    elif(piece=="white_pawn4"):
+        return ('K',4)
+    elif(piece=="white_pawn5"):
+        return ('K',5)
+    elif(piece=="white_pawn6"):
+        return ('K',6)
+    elif(piece=="white_pawn7"):
+        return ('K',7)
+    elif(piece=="black_rook0"):
+        return ('L',0)
+    elif(piece=="black_knight0"):
+        return ('L',1)
+    elif(piece=="black_bishop0"):
+        return ('L',2)
+    elif(piece=="black_queen"):
+        return ('L',3)
+    elif(piece=="black_king"):
+        return ('L',4)
+    elif(piece=="black_bishop1"):
+        return ('L',5)
+    elif(piece=="black_knight1"):
+        return ('L',6)
+    elif(piece=="black_rook1"):
+        return ('L',7)
+#--- End Processing

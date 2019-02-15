@@ -10,6 +10,9 @@ import config
 # Dummy accuracy (error added per unit moved)
 accuracy = 0.01
 
+# Error threshold (in cm)
+threshold = 10.0
+
 # Dummy Arch
 class Arch:
     # Internal position in cm (along bottom rail)
@@ -21,6 +24,9 @@ class Arch:
     def go_to_cell(self, cell):
         # Unpack column
         (column, _) = cell
+
+        # Check for error over threshold
+        self.check_error()
 
         # Compute target and relative positions
         target = config.cell_column_cm(column)
@@ -38,6 +44,13 @@ class Arch:
         self.position = config.arch_reset_position
         self.error = 0
 
+    # Reset self if error is over threshold
+    def check_error(self):
+        if self.error > threshold:
+            print("Arch error is %f cm (threshold: %f cm), resetting..." % (self.error, threshold))
+            self.go_to_edge()
+
+
     # Print state summary
     def print_state(self):
         print("Dummy Arch: position = %f; error = %f" % (self.position, self.error))
@@ -53,6 +66,9 @@ class Platform:
     def go_to_cell(self, cell):
         # Unpack row
         (_, row) = cell
+
+        # Check for error over threshold
+        self.check_error()
 
         # Compute target and relative positions
         target = config.cell_row_cm(column)
@@ -80,6 +96,12 @@ class Platform:
         print("Moving Platform by %f from %f to %f - the top rail centre" % (relative, self.position, target))
         self.position += relative
         self.error += accuracy * relative
+
+    # Reset self if error is over threshold
+    def check_error(self):
+        if self.error > threshold:
+            print("Platform error is %f cm (threshold: %f cm), resetting..." % (self.error, threshold))
+            self.go_to_edge()
 
     # Print state summary
     def print_state(self):

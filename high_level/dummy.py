@@ -37,7 +37,7 @@ class High_Level_Interface:
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):
         # Get buffer cell for piece
-        buffer_cell = config.select_buffer_cell(piece)
+        buffer_cell = config.buffer_cells[piece]
 
         self.move(cellB, buffer_cell)
         self.move(cellA, cellB)
@@ -53,7 +53,3 @@ class High_Level_Interface:
 
 
 hli = High_Level_Interface()
-testcell = ('B', 2)
-testcell1 = ('D', 4)
-hli.move_piece(testcell, testcell1)
-hli.take_piece(testcell, testcell1, "black_knight0")

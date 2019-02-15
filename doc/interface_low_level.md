@@ -11,6 +11,7 @@ Public state:
 ### `go_to_cell(cell)`
 Moves the arch to be over a cell.
 Computes the actual position to move to using cell size from the config, adjusting for the space between the board and buffer as needed.
+If the expected error is over a preset threshold, first performs a position reset via `go_to_edge()` and then performs the movement.
 
 **Assumptions**:
 
@@ -18,6 +19,7 @@ Computes the actual position to move to using cell size from the config, adjusti
 
 **Effects**:
 
+- If the expected error is over the threshold, performs a reset.
 - The physical arch moves to have the grabber centred over the supplied cell column.
 - Internal position is updated by the actual distance moved, with the result being "sufficiently close" to the centre of the desired cell column.
 - Expected error is incremented by a factor of the actual distance moved.
@@ -46,6 +48,7 @@ Public state:
 ### `go_to_cell(cell)`
 Moves the platform to be over a cell.
 Computes the actual position to move to using cell size from the config.
+If the expected error is over a preset threshold, first performs a position reset via `go_to_edge()` and then performs the movement.
 
 **Assumptions**:
 
@@ -53,6 +56,7 @@ Computes the actual position to move to using cell size from the config.
 
 **Effects**:
 
+- If the expected error is over the threshold, performs a reset.
 - The physical platform moves to have the grabber centred over the supplied cell row.
 - Internal position is updated by the actual distance moved, with the result being "sufficiently close" to the centre of the desired cell row.
 - Expected error is incremented by a factor of the actual distance moved.

@@ -5,7 +5,7 @@
 # Author(s):
 #   Filip Smola
 
-import config
+from . import config
 
 # Dummy accuracy (error added per unit moved)
 accuracy = 0.01

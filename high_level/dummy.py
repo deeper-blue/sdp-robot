@@ -5,7 +5,7 @@
 # Author(s):
 #   Stewart Wilson
 
-import config
+from . import config
 
 preset_state = ('A', 1)
 current_state = ('A', 1)

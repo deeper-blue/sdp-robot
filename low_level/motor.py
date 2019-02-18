@@ -37,6 +37,10 @@ class Twin:
     def get_position(self):
         return self.main.position
 
+    # Set main motor position
+    def set_position(self, position):
+        self.main.position = position
+
     # Delegate to both motors
     def run_direct(self, duty_cycle):
         self.main.run_direct(duty_cycle_sp = duty_cycle)
@@ -85,6 +89,10 @@ class Single:
     # Get motor position
     def get_position(self):
         return self.motor.position
+
+    # Set motor position
+    def set_position(self, position):
+        self.motor.position = position
 
     # Delegate to motor
     def run_direct(self, duty_cycle):

@@ -5,7 +5,7 @@
 # Authors:
 #   Filip Smola
 
-remote="robot@ev3dev:/home/robot/robot"
-files="start.sh stop.py ./test"
+remote="robot@192.168.105.$1:/home/robot/robot"
+files="start.sh stop.py test.py ./test ./low_level"
 
 scp -r $files $remote

@@ -63,7 +63,7 @@ class Thread:
         self.motor.wait_while('running')
 
         # Print info and update state
-        print("Grabber:\tMoved down (error: %f tachos)" % (self.motor.get_position() -  up_pos))
+        print("Grabber:\tMoved down (error: %f tachos)" % (self.motor.get_position() -  down_pos))
         self.up = False
 
     # Turn electromagnet on

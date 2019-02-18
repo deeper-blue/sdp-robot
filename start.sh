@@ -1,8 +1,8 @@
 #! /bin/bash
 
-# Starts the basic movement test.
+# Starts the test script.
 #
 # Authors:
 #   Filip Smola
 
-python3 test/demo_1/demo_test_run.py
+python3 test.py

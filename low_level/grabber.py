@@ -11,11 +11,14 @@ from . import motor
 #   - Two options for up position are at platform and two figures from the board.
 #   - Assumes motor starts in the down position.
 
-# Grabber up position
-up_pos = config.grabber_two_figures
+# Grabber up position in tacho counts down from position at platform
+up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
+#up_pos = 0  # at platform in cm
+up_pos = up_pos / config.grabber_circ * 360 # to degrees
 
 # Grabber down position
-down_pos = config.grabber_down
+down_pos = config.grabber_height - (config.board_height + config.tallest_piece) # in cm
+down_pos = down_pos / config.grabber_circ * 360 # to degrees
 
 # Speed in tacho counts per second
 speed = 270 # 3/4 rotations per second

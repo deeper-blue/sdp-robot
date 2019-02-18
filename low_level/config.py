@@ -31,15 +31,8 @@ wheel_circ = 12.8
 # Grabber height in cm
 grabber_height = 34
 
-#TODO adjust the following three to be computed instead of hardcoded (need wheel circ)
-# Grabber position two figures above board in tacho counts
-grabber_two_figures = 320
-
-# Grabber position at platform
-grabber_platform = 0
-
-# Grabber position at top of figure on board
-grabber_down = 728
+# Grabber wheel circumference in cm
+grabber_circ = 7.06
 
 # Port of grabber motor
 grabber_motor_port = 'outD'

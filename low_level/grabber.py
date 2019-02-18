@@ -47,7 +47,7 @@ class Thread:
         self.motor.run_to_abs_pos(up_pos, speed)
 
         # Print info and update state
-        print("Grabber:\tMoved up")
+        print("Grabber:\tMoved up (error: %f tachos)" % (self.motor.get_position() -  up_pos))
         self.up = True
 
     # Move grabber into the down position
@@ -61,7 +61,7 @@ class Thread:
         self.motor.run_to_abs_pos(down_pos, speed)
 
         # Print info and update state
-        print("Grabber:\tMoved down")
+        print("Grabber:\tMoved down (error: %f tachos)" % (self.motor.get_position() -  up_pos))
         self.up = False
 
     # Turn electromagnet on

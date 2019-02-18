@@ -44,7 +44,7 @@ class Thread:
             return
 
         # Move motor to configured up position
-        motor.run_to_abs_pos(up_pos)
+        motor.run_to_abs_pos(up_pos, speed)
 
         # Print info and update state
         print("Grabber:\tMoved up")
@@ -58,7 +58,7 @@ class Thread:
             return
 
         # Move motor to configured down position
-        motor.run_to_abs_pos(down_pos)
+        motor.run_to_abs_pos(down_pos, speed)
 
         # Print info and update state
         print("Grabber:\tMoved down")

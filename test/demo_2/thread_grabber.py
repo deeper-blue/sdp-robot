@@ -4,6 +4,7 @@
 # Author(s):
 #   Filip Smola
 
+import sys
 import math
 
 from ...low_level import grabber
@@ -33,7 +34,7 @@ for i in range(0, n):
 # Compute and print up statistics
 print("=== Statistics (n = %d) ===" % (n))
 up_max_abs = 0
-up_min_abs = 0
+up_min_abs = sys.maxsize
 up_avg = 0
 for x in up_errors:
     if math.fabs(x) > up_max_abs:
@@ -48,7 +49,7 @@ print("UP: max_abs = %f, min_abs = %f, avg = %f" % (up_max_abs, up_min_abs, up_a
 
 # Compute and print down statistics
 down_max_abs = 0
-down_min_abs = 0
+down_min_abs = sys.maxsize
 down_avg = 0
 for x in down_errors:
     if math.fabs(x) > down_max_abs:

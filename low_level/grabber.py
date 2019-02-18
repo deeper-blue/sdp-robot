@@ -45,6 +45,7 @@ class Thread:
 
         # Move motor to configured up position
         self.motor.run_to_abs_pos(up_pos, speed)
+        self.motor.wait_while('running')
 
         # Print info and update state
         print("Grabber:\tMoved up (error: %f tachos)" % (self.motor.get_position() -  up_pos))
@@ -59,6 +60,7 @@ class Thread:
 
         # Move motor to configured down position
         self.motor.run_to_abs_pos(down_pos, speed)
+        self.motor.wait_while('running')
 
         # Print info and update state
         print("Grabber:\tMoved down (error: %f tachos)" % (self.motor.get_position() -  up_pos))

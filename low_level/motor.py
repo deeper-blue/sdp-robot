@@ -47,6 +47,11 @@ class Twin:
         self.main.run_to_rel_pos(position_sp = position, speed_sp = speed)
         self.slave.run_to_rel_pos(position_sp = position, speed_sp = speed)
 
+    # Delegate to motors
+    def run_to_abs_pos(self, position, speed):
+        self.main.run_to_abs_pos(position_sp = position, speed_sp = speed)
+        self.slave.run_to_abs_pos(position_sp = position, speed_sp = speed)
+
     # Stop both motors
     def stop(self):
         self.main.stop()
@@ -88,6 +93,10 @@ class Single:
     # Delegate to motor
     def run_to_rel_pos(self, position, speed):
         self.motor.run_to_rel_pos(position_sp = position, speed_sp = speed)
+
+    # Delegate to motor
+    def run_to_abs_pos(self, position, speed):
+        self.motor.run_to_abs_pos(position_sp = position, speed_sp = speed)
 
     # Stop motor
     def stop(self):

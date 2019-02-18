@@ -3,6 +3,6 @@
 # Author(s):
 #   Filip Smola
 
-import test.demo_2
+from test.demo_2 import thread_grabber
 
 thread_grabber.run()

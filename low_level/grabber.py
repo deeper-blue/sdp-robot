@@ -33,6 +33,8 @@ class Thread:
     up = False
     # Whether the electromagnet is turned on
     on = False
+    # Last error in tachos
+    last_error = 0
 
     # Construct a grabber from the attached motor
     def __init__(self, motor):
@@ -52,7 +54,8 @@ class Thread:
         self.motor.wait_while('running')
 
         # Print info and update state
-        print("Grabber:\tMoved up (error: %d tachos)" % (self.motor.get_position() -  up_pos))
+        self.last_error = self.motor.get_position() -  up_pos
+        print("Grabber:\tMoved up (error: %d tachos)" % (self.last_error))
         self.up = True
 
     # Move grabber into the down position
@@ -67,7 +70,8 @@ class Thread:
         self.motor.wait_while('running')
 
         # Print info and update state
-        print("Grabber:\tMoved down (error: %d tachos)" % (self.motor.get_position() -  down_pos))
+        self.last_error = self.motor.get_position() -  down_pos
+        print("Grabber:\tMoved down (error: %d tachos)" % (self.last_error))
         self.up = False
 
     # Turn electromagnet on

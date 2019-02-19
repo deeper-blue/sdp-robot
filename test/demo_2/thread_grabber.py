@@ -26,11 +26,11 @@ def run():
     
         # Go up
         gr.go_up()
-        up_errors.append(gr.motor.get_position() - grabber.up_pos)
+        up_errors.append(gr.last_error)
     
         # Go down
         gr.go_down()
-        down_errors.append(gr.motor.get_position() - grabber.down_pos)
+        down_errors.append(gr.last_error)
     
     # Compute and print up statistics
     print("=== Statistics (n = %d) ===" % (n))
@@ -46,7 +46,7 @@ def run():
     
         up_avg += x
     up_avg /= n
-    print("UP: max_abs = %f, min_abs = %f, avg = %f" % (up_max_abs, up_min_abs, up_avg))
+    print("UP: max_abs = %d, min_abs = %d, avg = %f" % (up_max_abs, up_min_abs, up_avg))
     
     # Compute and print down statistics
     down_max_abs = 0
@@ -61,4 +61,4 @@ def run():
     
         down_avg += x
     down_avg /= n
-    print("DOWN: max_abs = %f, min_abs = %f, avg = %f" % (down_max_abs, down_min_abs, down_avg))
+    print("DOWN: max_abs = %d, min_abs = %d, avg = %f" % (down_max_abs, down_min_abs, down_avg))

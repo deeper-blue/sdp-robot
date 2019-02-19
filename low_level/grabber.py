@@ -3,6 +3,8 @@
 # Author(s):
 #   Filip Smola
 
+import math
+
 from . import config
 from . import motor
 
@@ -15,10 +17,12 @@ from . import motor
 up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
 #up_pos = 0  # at platform in cm
 up_pos = up_pos / config.grabber_circ * 360 # to degrees
+up_pos = math.floor(up_pos) # round down
 
 # Grabber down position
 down_pos = config.grabber_height - (config.board_height + config.tallest_piece) # in cm
 down_pos = down_pos / config.grabber_circ * 360 # to degrees
+down_pos = math.floor(down_pos) # round down
 
 # Speed in tacho counts per second
 speed = 270 # 3/4 rotations per second
@@ -48,7 +52,7 @@ class Thread:
         self.motor.wait_while('running')
 
         # Print info and update state
-        print("Grabber:\tMoved up (error: %f tachos)" % (self.motor.get_position() -  up_pos))
+        print("Grabber:\tMoved up (error: %d tachos)" % (self.motor.get_position() -  up_pos))
         self.up = True
 
     # Move grabber into the down position
@@ -63,7 +67,7 @@ class Thread:
         self.motor.wait_while('running')
 
         # Print info and update state
-        print("Grabber:\tMoved down (error: %f tachos)" % (self.motor.get_position() -  down_pos))
+        print("Grabber:\tMoved down (error: %d tachos)" % (self.motor.get_position() -  down_pos))
         self.up = False
 
     # Turn electromagnet on

@@ -29,7 +29,7 @@ tallest_piece = 7.9
 wheel_circ = 12.8
 
 # Grabber height in cm
-grabber_height = 34
+grabber_height = 24.9
 
 # Grabber wheel circumference in cm
 grabber_circ = 7.06

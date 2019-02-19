@@ -15,7 +15,7 @@ from . import motor
 
 # Grabber up position in tacho counts down from position at platform
 up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
-#up_pos = 0  # at platform in cm #TODO check that this is the correct position
+#up_pos = 0  # at platform in cm
 up_pos = up_pos / config.grabber_circ * 360 # to degrees
 up_pos = math.floor(up_pos) # round down
 

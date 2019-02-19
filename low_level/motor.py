@@ -23,8 +23,8 @@ class Twin:
         self.slave = ev3.LargeMotor(slave)
 
         # Brake on stop
-        self.main.stop_action = self.main.STOP_ACTION_BRAKE
-        self.slave.stop_action = self.slave.STOP_ACTION_BRAKE
+        self.main.stop_action = self.main.STOP_ACTION_HOLD
+        self.slave.stop_action = self.slave.STOP_ACTION_HOLD
 
         # Set motor name
         self.name = "[%s,%s]" % (main, slave)
@@ -37,6 +37,10 @@ class Twin:
     def get_position(self):
         return self.main.position
 
+    # Set main motor position
+    def set_position(self, position):
+        self.main.position = position
+
     # Delegate to both motors
     def run_direct(self, duty_cycle):
         self.main.run_direct(duty_cycle_sp = duty_cycle)
@@ -46,6 +50,11 @@ class Twin:
     def run_to_rel_pos(self, position, speed):
         self.main.run_to_rel_pos(position_sp = position, speed_sp = speed)
         self.slave.run_to_rel_pos(position_sp = position, speed_sp = speed)
+
+    # Delegate to motors
+    def run_to_abs_pos(self, position, speed):
+        self.main.run_to_abs_pos(position_sp = position, speed_sp = speed)
+        self.slave.run_to_abs_pos(position_sp = position, speed_sp = speed)
 
     # Stop both motors
     def stop(self):
@@ -68,7 +77,7 @@ class Single:
         self.motor = ev3.LargeMotor(motor)
 
         # Brake on stop
-        self.motor.stop_action = self.motor.STOP_ACTION_BRAKE
+        self.motor.stop_action = self.motor.STOP_ACTION_HOLD
 
         # Set motor name
         self.name = "[%s]" % motor
@@ -81,6 +90,10 @@ class Single:
     def get_position(self):
         return self.motor.position
 
+    # Set motor position
+    def set_position(self, position):
+        self.motor.position = position
+
     # Delegate to motor
     def run_direct(self, duty_cycle):
         self.motor.run_direct(duty_cycle_sp = duty_cycle)
@@ -88,6 +101,10 @@ class Single:
     # Delegate to motor
     def run_to_rel_pos(self, position, speed):
         self.motor.run_to_rel_pos(position_sp = position, speed_sp = speed)
+
+    # Delegate to motor
+    def run_to_abs_pos(self, position, speed):
+        self.motor.run_to_abs_pos(position_sp = position, speed_sp = speed)
 
     # Stop motor
     def stop(self):

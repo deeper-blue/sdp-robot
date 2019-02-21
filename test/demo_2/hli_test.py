@@ -5,11 +5,14 @@
 
 from high_level import config
 from high_level import hli_implementation
+from low_level.dummy import arch, platform, grabber
+
 
 def run():
 
     # Instantiate hli
-    hli = hli_implementation.High_Level_Interface()
+    preset_state = ('L',1)
+    hli = hli_implementation.High_Level_Interface(preset_state, arch, platform, grabber)
 
     # Run experiment 1: Moving piece
     cellA = ('B',2)

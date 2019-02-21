@@ -7,20 +7,20 @@
 from . import config
 from low_level.dummy import arch, platform, grabber
 
-preset_state = ('A', 1)
-current_state = ('A', 1)
+preset_state = ('L', 1)
 
 
 # Dummy Arch
 class High_Level_Interface:
 
+    def __init__(self, current_state, arch, platform, grabber):
+        self.current_state = current_state
+        self.arch = arch
+        self.platform = platform
+        self.grabber = grabber
+
     def convert_cell(self, cell):
-        lst = list(cell)
-        char = lst[0]
-        number = ord(char) - 65
-        lst[0] = number
-        cell = tuple(lst)
-        return cell
+        return (ord(cell[0]) - 65, cell[1] - 1)
 
     # Move piece to empty square
     def move_piece(self, cellA, cellB):
@@ -37,22 +37,22 @@ class High_Level_Interface:
         cellB = self.convert_cell(cellB)
 
         # Move to cellA
-        arch.go_to_cell(cellA)
-        platform.go_to_cell(cellA)
+        self.arch.go_to_cell(cellA)
+        self.platform.go_to_cell(cellA)
 
         # Pick up piece at cellA
-        grabber.go_down()
-        grabber.turn_on()
-        grabber.go_up()
+        self.grabber.go_down()
+        self.grabber.turn_on()
+        self.grabber.go_up()
 
         # Move to cellB
-        arch.go_to_cell(cellB)
-        platform.go_to_cell(cellB)
+        self.arch.go_to_cell(cellB)
+        self.platform.go_to_cell(cellB)
 
         # Place piece at cellB
-        grabber.go_down()
-        grabber.turn_off()
-        grabber.go_up()
+        self.grabber.go_down()
+        self.grabber.turn_off()
+        self.grabber.go_up()
 
 
     # Go to reset by going to preset state
@@ -61,8 +61,9 @@ class High_Level_Interface:
         print("Moving robot to preset state/cell")
 
         # Centre platform and go to preset/reset position
-        platform.centre()
-        arch.go_to_edge()
+        self.platform.centre()
+        self.arch.go_to_edge()
+        self.platform.go_to_edge()
 
         # Changing state to preset cell
         self.current_state = preset_state
@@ -90,4 +91,4 @@ class High_Level_Interface:
 
 
 
-hli = High_Level_Interface()
+hli = High_Level_Interface(preset_state, arch, platform, grabber)

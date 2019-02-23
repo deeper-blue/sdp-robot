@@ -81,11 +81,25 @@ class Thread:
 
     # Turn electromagnet on
     def turn_on(self):
-        raise NotImplementedError
+        # Write to GPIO value file
+        file = open("/sys/class/gpio/gpio%d/value" % (config.magnet_gpio_no), "w")
+        file.write("1")
+        file.close()
+
+        # Print info and update state
+        print("Grabber:\t Magnet turned off")
+        self.on = True
 
     # Turn electromagnet off
     def turn_off(self):
-        raise NotImplementedError
+        # Write to GPIO value file
+        file = open("/sys/class/gpio/gpio%d/value" % (config.magnet_gpio_no), "w")
+        file.write("0")
+        file.close()
+
+        # Print info and update state
+        print("Grabber:\t Magnet turned off")
+        self.on = False
 
     # Print state summary
     def print_state(self):

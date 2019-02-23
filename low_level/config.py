@@ -37,6 +37,9 @@ grabber_circ = 7.06
 # Port of grabber motor
 grabber_motor_port = 'outD'
 
+# Number of the electromagnet GPIO
+magnet_gpio_no = 121
+
 #--- End Configuration
 
 #--- Start Processing

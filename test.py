@@ -1,8 +1,8 @@
 # Python test script so packages are properly set up.
 #
 # Author(s):
-#  Stewart Wilson
+#   Filip Smola
 
-from test.demo_2 import hli_test
+from test.demo_2 import thread_grabber
 
-hli_test.run()
+thread_grabber.run()

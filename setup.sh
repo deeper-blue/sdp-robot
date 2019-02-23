@@ -8,5 +8,6 @@
 # Set in3 port's mode to raw
 echo "raw" > /sys/class/lego-port/port2/mode
 
-# Set permissions to value of GPIO 121 to 664 (rw-rw-r--)
-sudo chmod 664 /sys/class/gpio/gpio121/value
+# Set group and permissions to value of GPIO 121 to gpio and 664 (rw-rw-r--)
+chown root:gpio /sys/class/gpio/gpio121/value
+chmod 664 /sys/class/gpio/gpio121/value

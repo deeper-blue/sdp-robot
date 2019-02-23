@@ -52,6 +52,9 @@ touch_sensor_arch = 'in2'
 # Port for the touch sensor for the platform
 touch_sensor_platform = 'in1'
 
+# Number of the electromagnet GPIO
+magnet_gpio_no = 121
+
 #--- End Configuration
 
 #--- Start Processing

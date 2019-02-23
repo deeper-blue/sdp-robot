@@ -7,6 +7,7 @@
 from . import config
 from . import motor
 from . import move
+from . import time
 from ev3dev.ev3 import *
 
 # Dummy accuracy (error added per unit moved)
@@ -21,6 +22,10 @@ class Platform:
     position = 0
     # Expected error in cm (internal - real)
     error = 0
+    # Get single motor
+    single = motor.Single(config.platform_motor)
+    # Prepare movement
+    movement = move.Gradual(config.wheel_circ)
     
     # Go to specified cell's row
     def go_to_cell(self, cell):
@@ -36,7 +41,7 @@ class Platform:
         
         # Move the platform to the specified row
         print("Moving Platform by %f from %f to %f" % (relative, self.position, target))
-        move_platform(relative)
+        self.move_platform(relative)
         self.position += relative
         self.error += accuracy * relative
         
@@ -45,14 +50,14 @@ class Platform:
         # Send the platform to the reset end, to set the error to 0
         print("Moving Platform in negative direction until reset button is hit")
         
-        ts1 = TouchSensor('in1')
-        single = motor.Single(motor.portC)
+        ts1 = TouchSensor(config.touch_sensor_platform)
         
         # Platform moves until sensor is pressed
         while not ts1.is_pressed:
-            single.run_to_rel_pos(-10, 150)
+            self.single.run_direct(-20)
+            time.sleep(0.01)
             
-        single.stop()
+        self.single.stop()
         print("End reached!")
         
         self.position = config.platform_reset_position
@@ -66,9 +71,13 @@ class Platform:
         
         # Move the platform to the centre
         print("Moving Platform by %f from %f to %f - the top rail centre" % (relative, self.position, target))
-        move_platform(relative)
+        self.move_platform(relative)
         self.position += relative
         self.error += accuracy * relative
+        
+    def move_platform(self, dist):
+        # Move in the direction and by the amount specified in dist
+        self.movement.move(self.single, dist)
         
     # Reset self if error is over threshold
     def check_error(self):
@@ -79,13 +88,3 @@ class Platform:
     # Print state summary
     def print_state(self):
         print("Platform: position = %f; error = %f" % (self.position, self.error))
-        
-def move_platform(dist):
-    # Get single motor
-    single = motor.Single(motor.portC)
-    
-    # Prepare movement
-    movement = move.Gradual(config.wheel_circ)
-    
-    # Move in the direction and by the amount specified in dist
-    movement.move(single, dist)

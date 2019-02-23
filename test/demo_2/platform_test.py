@@ -27,20 +27,14 @@ def run():
         print("Iteration %d" % (i))
     
         # Go left
-        platform.go_to_cell((4,4))
-        left_errors.append(platform.error)
-        
-        # Go centre
-        platform.centre()
-        centre_errors.append(platform.error)
+        platform.go_to_cell((8,8))
+        # Minus the expected distance travelled away from the actual distance travelled
+        left_errors.append(platform.single.get_position()-platform.position)
     
         # Go right
-        platform.go_to_cell((-4,-4))
-        right_errors.append(platform.error)
-        
-        # Go centre
-        platform.centre()
-        centre_errors.append(platform.error)
+        platform.go_to_cell((0,0))
+        # Minus the expected distance travelled away from the actual distance travelled
+        right_errors.append(platform.single.get_position()-platform.position)
     
     # Compute and print left statistics
     print("=== Statistics (n = %d) ===" % (n))

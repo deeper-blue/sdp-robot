@@ -37,8 +37,20 @@ grabber_circ = 7.06
 # Port of grabber motor
 grabber_motor_port = 'outD'
 
-# Number of the electromagnet GPIO
-magnet_gpio_no = 121
+# Port of the left motor for the arch
+left_arch_motor = 'outA'
+
+# Port of the right motor for the arch
+right_arch_motor = 'outB'
+
+# Port of the motor for the platform
+platform_motor = 'outC'
+
+# Port for the touch sensor for the arch
+touch_sensor_arch = 'in2'
+
+# Port for the touch sensor for the platform
+touch_sensor_platform = 'in1'
 
 #--- End Configuration
 

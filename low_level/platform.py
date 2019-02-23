@@ -7,7 +7,7 @@
 from . import config
 from . import motor
 from . import move
-from . import time
+import time
 from ev3dev.ev3 import *
 
 # Dummy accuracy (error added per unit moved)

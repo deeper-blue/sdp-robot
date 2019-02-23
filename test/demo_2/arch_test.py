@@ -26,14 +26,13 @@ def run():
     
         # Go forward
         arch.go_to_cell((12,0))
-        forward_errors.append(arch.error)
+        # Minus the expected distance travelled away from the actual distance travelled
+        forward_errors.append(arch.twins.get_position()-arch.position)
         
-        # Reset error
-        arch.go_to_edge()
-
         # Go backward
         arch.go_to_cell((0,0))
-        backward_errors.append(arch.error)
+        # Minus the expected distance travelled away from the actual distance travelled
+        backward_errors.append(arch.twins.get_position()-arch.position)
     
     # Compute and print forward statistics
     print("=== Statistics (n = %d) ===" % (n))

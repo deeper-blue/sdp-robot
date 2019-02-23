@@ -15,7 +15,7 @@ from low_level import motor
 def run():
     # Instantiate arch
     arch = a.Arch()
-    
+
     # Run experiment
     n = 20
     print("=== Experiment (n = %d) ==" % (n))
@@ -23,17 +23,17 @@ def run():
     backward_errors = []
     for i in range(0, n):
         print("Iteration %d" % (i))
-    
+
         # Go forward
         arch.go_to_cell((12,0))
         # Minus the expected distance travelled away from the actual distance travelled
         forward_errors.append(arch.twins.get_position()-arch.position)
-        
+
         # Go backward
         arch.go_to_cell((0,0))
         # Minus the expected distance travelled away from the actual distance travelled
         backward_errors.append(arch.twins.get_position()-arch.position)
-    
+
     # Compute and print forward statistics
     print("=== Statistics (n = %d) ===" % (n))
     forward_max_abs = 0
@@ -42,10 +42,10 @@ def run():
     for x in forward_errors:
         if math.fabs(x) > forward_max_abs:
             forward_max_abs = math.fabs(x)
-    
+
         if math.fabs(x) < forward_min_abs:
             forward_min_abs = math.fabs(x)
-    
+
         forward_avg += x
     forward_avg /= n
     print("FORWARD: max_abs = %d, min_abs = %d, avg = %f" % (forward_max_abs, forward_min_abs, forward_avg))
@@ -58,10 +58,10 @@ def run():
     for x in backward_errors:
         if math.fabs(x) > backward_max_abs:
             backward_max_abs = math.fabs(x)
-    
+
         if math.fabs(x) < backward_min_abs:
             backward_min_abs = math.fabs(x)
-    
+
         backward_avg += x
     backward_avg /= n
     print("BACKWARD: max_abs = %d, min_abs = %d, avg = %f" % (backward_max_abs, backward_min_abs, backward_avg))

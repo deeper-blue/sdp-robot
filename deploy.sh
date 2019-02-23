@@ -5,7 +5,7 @@
 # Authors:
 #   Filip Smola
 
-remote="robot@192.168.105.$1:/home/robot/robot"
+remote="robot@192.168.17.$1:/home/robot/robot"
 files="start.sh stop.py test.py ./test ./low_level"
 
 scp -r $files $remote

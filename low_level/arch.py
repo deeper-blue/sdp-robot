@@ -48,20 +48,20 @@ class Arch:
     # Go to buffer-side edge and reset
     def go_to_edge(self):
         print("Moving Arch in positive direction until reset button is hit")
-        
+
         ts2 = TouchSensor(config.touch_sensor_arch)
 
         # Move along the rail until sensor is pressed
         while not ts2.is_pressed:
             self.twins.run_direct(-20)
             time.sleep(0.01)
-        
+
         self.twins.stop()
         print("End reached!")
-        
+
         self.position = config.arch_reset_position
         self.error = 0
-        
+
     def move_arch(self, dist):
         # Move in the direction and by the amount specified in dist
         self.movement.move(self.twins, dist)

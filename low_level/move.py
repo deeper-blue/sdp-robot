@@ -40,7 +40,7 @@ class Gradual:
         self.poll_t = 0.1
 
     # Move a motor a set linear distance (in cm)
-    def move(self, motor, distance):
+    def move_by(self, motor, distance):
         print("Moving %s gradually over %f cm" % (motor.name, distance))
 
         # Skip if zero distance
@@ -113,7 +113,7 @@ class Uniform:
         self.long_distance = 15
 
     # Move a motor a set linear distance (in cm)
-    def move(self, motor, distance):
+    def move_by(self, motor, distance):
         # Pick speed
         speed = self.speed_long if (math.fabs(distance) >= self.long_distance) else self.speed_short
 

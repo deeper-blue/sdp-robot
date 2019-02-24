@@ -77,7 +77,7 @@ class Platform:
 
     def move_platform(self, dist):
         # Move in the direction and by the amount specified in dist
-        self.movement.move(self.single, dist)
+        self.movement.move_by(self.single, dist)
 
     # Reset self if error is over threshold
     def check_error(self):

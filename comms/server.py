@@ -3,11 +3,13 @@
 # and call the corresponding function from high level interface
 # Author(s):
 #   Wanjing Chen
+
 import socket
-from . import dummy
+from high_level import dummy
 
 HOST = '192.168.105.116'  # Standard loopback interface address (localhost)
-PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
+# HOST = "127.0.0.1"
+PORT = 64432        # Port to listen on (non-privileged ports are > 1023)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
@@ -15,23 +17,28 @@ s.listen(1)
 print('listening to IP ' + HOST)
 conn, addr = s.accept()
 print('Connected by', addr)
-while True:
-    message = conn.recv(1024)
-    splitNcheck(message)
-    if not data:
-        break
-        conn.sendall(message)
 
 def splitNcheck(message):
-    data = message.split(";")
-    if(data[0] == "move_piece"):
-        dummy.move_piece(self,data[1],data[2])
-    else if(data[0] == "move"):
-        dummy.move(self,data[1],data[2])
-    else if(data[0] == "take_piece"):
-        dummy.take_piece(self,data[1],data[2],data[3])
-    else if(data[0] == "perform_castling_at"):
-        dummy.perform_castling_at(self,data[1],data[2],data[3],data[4])
-    else if(data[0] == "reset"):
-        dummy.reset(self)
+    hle = dummy.High_Level_Interface()
+    data = message.decode('utf-8').split(";")
+    if(data[0] == "move_piece" and len(data)==3):
+        hle.move_piece(data[1],data[2])
+    elif(data[0] == "move" and len(data)==3):
+        hle.move(data[1],data[2])
+    elif(data[0] == "take_piece" and len(data)==4):
+        hle.take_piece(data[1],data[2],data[3])
+    elif(data[0] == "perform_castling_at" and len(data)==5):
+        hle.perform_castling_at(data[1],data[2],data[3],data[4])
+    elif(data[0] == "reset"):
+        hle.reset()
+    else:
+        print('No action')
     print("Called function: " + data[0])
+
+
+while True:
+    message = conn.recv(1024)
+    if not message:
+        break
+    splitNcheck(message)
+    conn.sendall(message)

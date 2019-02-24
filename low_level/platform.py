@@ -24,6 +24,11 @@ class Platform:
     # Prepare movement
     movement = move.Gradual(config.wheel_circ)
 
+    # Reset position on construction
+    def __init__(self):
+        self.single.set_position(0)
+        self.movement.speed_long = 150
+
     # Go to specified cell's row
     def go_to_cell(self, cell):
         # Unpack row
@@ -55,6 +60,7 @@ class Platform:
 
         self.position = config.platform_reset_position
         self.error = 0
+        self.single.set_position(self.movement.cm_to_deg(config.platform_reset_position))
 
     # Go to centre of top rail
     def centre(self):

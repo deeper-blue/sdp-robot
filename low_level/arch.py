@@ -24,6 +24,10 @@ class Arch:
     # Prepare movement
     movement = move.Gradual(config.wheel_circ)
 
+    # Reset position on construction
+    def __init__(self):
+        self.twins.set_position(0)
+
     # Go to specified cell's column
     def go_to_cell(self, cell):
         # Unpack column
@@ -54,11 +58,12 @@ class Arch:
 
         self.position = config.arch_reset_position
         self.error = 0
+        self.twins.set_position(-1 * self.movement.cm_to_deg(config.arch_reset_position))
 
     # Move to the target position
     def move(self, target):
         print("Moving Arch from %f to %f" % (self.position, target))
-        self.error = self.movement.move_to(self.twins, target)
+        self.error = self.movement.move_to(self.twins, -1 * target)
         self.position = target
 
     # Reset self if error is over threshold

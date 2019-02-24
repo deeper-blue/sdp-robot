@@ -11,8 +11,8 @@ def sine_guide(x):
     # Return zero outside of supported range
     if x < 0:
         return 0
-    if x > 1:
-        return 0
+#    if x > 1:
+#        return 0
 
     return math.sin(math.pi * x)
 
@@ -117,12 +117,13 @@ class Gradual:
 
         # Get starting position and distance
         start = motor.get_position()
-        distance = math.fabs(angual - start)
+        distance = math.fabs(angular - start)
 
-        # Adjust speed until position stops changing
-        # Note: this works thanks to the motor stopping automatically when it gets to the position
-        last = start - 1    # -1 just so that for the first iteration last != start
-        while last != motor.get_position():
+        # Start moving
+        motor.run_to_abs_pos(angular, self.min_speed)
+
+        # Adjust speed while the motor is running
+        while motor.is_running():
             # Compute guide argument
             d = math.fabs(motor.get_position() - start) / distance
 
@@ -137,12 +138,6 @@ class Gradual:
 
             # Delay
             time.sleep(self.poll_t)
-
-            # Update position
-            last = motor.get_position()
-
-        # Stop
-        motor.stop()
 
         # Print message and return error
         print("Done")
@@ -190,7 +185,7 @@ class Uniform:
     def move_to(self, motor, position):
         # Pick speed
         distance = math.fabs(position - self.deg_to_cm(motor.get_position()))
-        speed = self.max_speed_long if (distance >= self.long_distance) else self.max_speed_short
+        speed = self.speed_long if (distance >= self.long_distance) else self.speed_short
 
         print("Moving %s uniformly to %f cm at speed %d" % (motor.name, position, speed))
 

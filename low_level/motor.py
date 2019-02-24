@@ -66,6 +66,10 @@ class Twin:
         self.main.wait_while(state)
         self.slave.wait_while(state)
 
+    # Whether the motor is running
+    def is_running(self):
+        return 'running' in self.main.state
+
 # Single motor.
 # Meant to unify interface with Twin.
 class Single:
@@ -113,3 +117,7 @@ class Single:
     # Wait while motor in state
     def wait_while(self, state):
         self.motor.wait_while(state)
+
+    # Whether the motor is running
+    def is_running(self):
+        return 'running' in self.motor.state

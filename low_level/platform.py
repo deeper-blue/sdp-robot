@@ -10,9 +10,6 @@ from . import move
 import time
 from ev3dev.ev3 import *
 
-# Dummy accuracy (error added per unit moved)
-accuracy = 0.01
-
 # Error threshold (in cm)
 threshold = 10.0
 
@@ -35,15 +32,11 @@ class Platform:
         # Check for error over threshold
         self.check_error()
 
-        # Compute target and relative positions
+        # Compute target position
         target = config.cell_row_cm(row)
-        relative = target - self.position
 
         # Move the platform to the specified row
-        print("Moving Platform by %f from %f to %f" % (relative, self.position, target))
-        self.move_platform(relative)
-        self.position += relative
-        self.error += accuracy * relative
+        self.move(target)
 
     # Go to minimum row edge and reset
     def go_to_edge(self):
@@ -67,17 +60,15 @@ class Platform:
     def centre(self):
         # Get target and compute relative position
         target = config.top_centre
-        relative = target - self.position
 
         # Move the platform to the centre
-        print("Moving Platform by %f from %f to %f - the top rail centre" % (relative, self.position, target))
-        self.move_platform(relative)
-        self.position += relative
-        self.error += accuracy * relative
+        self.move(target)
 
-    def move_platform(self, dist):
-        # Move in the direction and by the amount specified in dist
-        self.movement.move_by(self.single, dist)
+    # Move to the target position
+    def move(self, target):
+        print("Moving Platform from %f to %f" % (self.position, target))
+        self.error = self.movement.move_to(self.single, target)
+        self.position = target
 
     # Reset self if error is over threshold
     def check_error(self):

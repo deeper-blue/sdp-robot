@@ -10,9 +10,6 @@ from . import move
 import time
 from ev3dev.ev3 import *
 
-# Dummy accuracy (error added per unit moved)
-accuracy = 0.01
-
 # Error threshold (in cm)
 threshold = 10.0
 
@@ -35,15 +32,11 @@ class Arch:
         # Check for error over threshold
         self.check_error()
 
-        # Compute target and relative positions
+        # Compute target position
         target = config.cell_column_cm(column)
-        relative = target - self.position
 
         # Move the arch by the given amount
-        print("Moving Arch by %f from %f to %f" % (relative, self.position, target))
-        self.move_arch(-relative)
-        self.position += relative
-        self.error += accuracy * relative
+        self.move(target)
 
     # Go to buffer-side edge and reset
     def go_to_edge(self):
@@ -62,9 +55,11 @@ class Arch:
         self.position = config.arch_reset_position
         self.error = 0
 
-    def move_arch(self, dist):
-        # Move in the direction and by the amount specified in dist
-        self.movement.move_by(self.twins, dist)
+    # Move to the target position
+    def move(self, target):
+        print("Moving Arch from %f to %f" % (self.position, target))
+        self.error = self.movement.move_to(self.twins, target)
+        self.position = target
 
     # Reset self if error is over threshold
     def check_error(self):

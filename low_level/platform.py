@@ -10,9 +10,6 @@ from . import move
 import time
 from ev3dev.ev3 import *
 
-# Dummy accuracy (error added per unit moved)
-accuracy = 0.01
-
 # Error threshold (in cm)
 threshold = 10.0
 
@@ -27,6 +24,11 @@ class Platform:
     # Prepare movement
     movement = move.Gradual(config.wheel_circ)
 
+    # Reset position on construction
+    def __init__(self):
+        self.single.set_position(0)
+        self.movement.speed_long = 150
+
     # Go to specified cell's row
     def go_to_cell(self, cell):
         # Unpack row
@@ -35,15 +37,11 @@ class Platform:
         # Check for error over threshold
         self.check_error()
 
-        # Compute target and relative positions
+        # Compute target position
         target = config.cell_row_cm(row)
-        relative = target - self.position
 
         # Move the platform to the specified row
-        print("Moving Platform by %f from %f to %f" % (relative, self.position, target))
-        self.move_platform(relative)
-        self.position += relative
-        self.error += accuracy * relative
+        self.move(target)
 
     # Go to minimum row edge and reset
     def go_to_edge(self):
@@ -62,22 +60,21 @@ class Platform:
 
         self.position = config.platform_reset_position
         self.error = 0
+        self.single.set_position(self.movement.cm_to_deg(config.platform_reset_position))
 
     # Go to centre of top rail
     def centre(self):
         # Get target and compute relative position
         target = config.top_centre
-        relative = target - self.position
 
         # Move the platform to the centre
-        print("Moving Platform by %f from %f to %f - the top rail centre" % (relative, self.position, target))
-        self.move_platform(relative)
-        self.position += relative
-        self.error += accuracy * relative
+        self.move(target)
 
-    def move_platform(self, dist):
-        # Move in the direction and by the amount specified in dist
-        self.movement.move(self.single, dist)
+    # Move to the target position
+    def move(self, target):
+        print("Moving Platform from %f to %f" % (self.position, target))
+        self.error = self.movement.move_to(self.single, target)
+        self.position = target
 
     # Reset self if error is over threshold
     def check_error(self):

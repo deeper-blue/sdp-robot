@@ -39,7 +39,13 @@ class Twin:
 
     # Set main motor position
     def set_position(self, position):
+        self.main.stop_action = self.main.STOP_ACTION_COAST
+        self.slave.stop_action = self.slave.STOP_ACTION_COAST
+        self.stop()
         self.main.position = position
+        self.slave.position = position
+        self.main.stop_action = self.main.STOP_ACTION_HOLD
+        self.slave.stop_action = self.slave.STOP_ACTION_HOLD
 
     # Delegate to both motors
     def run_direct(self, duty_cycle):
@@ -65,6 +71,10 @@ class Twin:
     def wait_while(self, state):
         self.main.wait_while(state)
         self.slave.wait_while(state)
+
+    # Whether the motor is running
+    def is_running(self):
+        return 'running' in self.main.state
 
 # Single motor.
 # Meant to unify interface with Twin.
@@ -92,7 +102,10 @@ class Single:
 
     # Set motor position
     def set_position(self, position):
+        self.motor.stop_action = self.motor.STOP_ACTION_COAST
+        self.stop()
         self.motor.position = position
+        self.motor.stop_action = self.motor.STOP_ACTION_HOLD
 
     # Delegate to motor
     def run_direct(self, duty_cycle):
@@ -113,3 +126,7 @@ class Single:
     # Wait while motor in state
     def wait_while(self, state):
         self.motor.wait_while(state)
+
+    # Whether the motor is running
+    def is_running(self):
+        return 'running' in self.motor.state

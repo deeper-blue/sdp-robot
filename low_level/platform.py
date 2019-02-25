@@ -22,7 +22,7 @@ class Platform:
     # Get single motor
     single = motor.Single(config.platform_motor)
     # Prepare movement
-    movement = move.Gradual(config.wheel_circ)
+    movement = move.Gradual(config.platform_circ)
 
     # Reset position on construction
     def __init__(self):

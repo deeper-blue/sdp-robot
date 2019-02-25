@@ -8,7 +8,7 @@
 #--- Start Configuration
 
 # The length of one side of a square on the chess board in cm
-square_length = 3.8
+square_length = 4.1
 
 # Total length of row in cm (start of board to end of buffer)
 row_length = 58
@@ -26,7 +26,7 @@ board_height = 2.4
 tallest_piece = 7.9
 
 # Wheel circumference in cm
-wheel_circ = 12.8
+wheel_circ = 12.5
 
 # Grabber height in cm
 grabber_height = 24.9
@@ -55,6 +55,12 @@ touch_sensor_platform = 'in1'
 # Number of the electromagnet GPIO
 magnet_gpio_no = 121
 
+# Circumference of the platform wheels in cm
+platform_circ = 12.8
+
+# Centre of top rail in cm
+top_centre = 17
+
 #--- End Configuration
 
 #--- Start Processing
@@ -79,8 +85,5 @@ arch_reset_position = row_length
 
 # Platform reset position is origin
 platform_reset_position = 0
-
-# Centre of top rail
-top_centre = column_length / 2
 
 #--- End Processing

@@ -1,8 +1,12 @@
 #! /bin/bash
 
-# Starts the basic movement test.
+# Starts the test script.
 #
 # Authors:
 #   Filip Smola
 
-python3 test/demo_1/demo_test_run.py
+# Set up environment
+sudo /home/robot/robot/setup.sh
+
+# Run test script
+python3 test.py

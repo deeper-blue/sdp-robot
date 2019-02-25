@@ -4,11 +4,14 @@
 # Author(s):
 #   Stewart Wilson
 
+import time
 from . import config
 from low_level.dummy import arch, platform, grabber
 
 preset_state = ('L', 1)
 
+# Time to wait around grabber up/down (in second)
+grabber_wait = 1
 
 # Dummy Arch
 class High_Level_Interface:
@@ -30,7 +33,6 @@ class High_Level_Interface:
 
     # Move piece in cellA to cellB
     def move(self, cellA, cellB):
-
         print("Moving piece at %s to %s\n" % (cellA, cellB))
 
         cellA = self.convert_cell(cellA)
@@ -41,23 +43,26 @@ class High_Level_Interface:
         self.platform.go_to_cell(cellA)
 
         # Pick up piece at cellA
+        time.sleep(grabber_wait)
         self.grabber.go_down()
         self.grabber.turn_on()
         self.grabber.go_up()
+        time.sleep(grabber_wait)
 
         # Move to cellB
         self.arch.go_to_cell(cellB)
         self.platform.go_to_cell(cellB)
 
         # Place piece at cellB
+        time.sleep(grabber_wait)
         self.grabber.go_down()
         self.grabber.turn_off()
         self.grabber.go_up()
+        time.sleep(grabber_wait)
 
 
     # Go to reset by going to preset state
     def reset(self):
-
         print("Moving robot to preset state/cell")
 
         # Centre platform and go to preset/reset position
@@ -81,14 +86,10 @@ class High_Level_Interface:
 
     # Castling function (May need reworked)
     def perform_castling_at(self, cellA, cellB, cellC, cellD):
-
         print("Peforming Castling at %s and %s\n" % (cellA, cellB))
 
         self.move(cellA, cellC)
         self.move(cellB, cellD)
         self.reset()
-
-
-
 
 hli = High_Level_Interface(preset_state, arch, platform, grabber)

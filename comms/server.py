@@ -5,8 +5,17 @@
 #   Wanjing Chen
 
 import socket
-from high_level import dummy
+from high_level import hli_implementation
+from low_level import arch, platform, grabber
 import ast
+
+# Instantiate LLI
+ar = arch.Arch()
+pl = platform.Platform()
+gr = grabber.grabber
+
+# Instantiate HLI
+hli = hli_implementation.High_Level_Interface(('A',1), ar, pl, gr)
 
 HOST = '192.168.105.116'  # Ev3 address
 PORT = 64432        # Port to listen on (non-privileged ports are > 1023)
@@ -20,7 +29,6 @@ print('Connected by', addr)
 
 def splitNcheck(message):
     result = "waiting for result"
-    hle = dummy.High_Level_Interface()
     # convert byte string message back to normal string message
     data = message.decode('utf-8').split(";")
     if(data[0] == "move_piece" and len(data)==3):
@@ -28,7 +36,7 @@ def splitNcheck(message):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         try:
-            hle.move_piece(cell1,cell2)
+            hli.move_piece(cell1,cell2)
             result = "OK"
         except:
             result = "Error: %s" % (exception.message)
@@ -36,7 +44,7 @@ def splitNcheck(message):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         try:
-            hle.move(cell1,cell2)
+            hli.move(cell1,cell2)
             result = "OK"
         except:
             result = "Error: %s" % (exception.message)
@@ -45,7 +53,7 @@ def splitNcheck(message):
         cell2 = ast.literal_eval(data[2])
         piece_name = data[3]
         try:
-            hle.take_piece(cell1,cell2,piece_name)
+            hli.take_piece(cell1,cell2,piece_name)
             result = "OK"
         except:
             result = "Error: %s" % (exception.message)
@@ -55,13 +63,13 @@ def splitNcheck(message):
         cell3 = ast.literal_eval(data[3])
         cell4 = ast.literal_eval(data[4])
         try:
-            hle.perform_castling_at(cell1,cell2,cell3,cell4)
+            hli.perform_castling_at(cell1,cell2,cell3,cell4)
             result = "OK"
         except:
             result = "Error: %s" % (exception.message)
     elif(data[0] == "reset"):
         try:
-            hle.reset()
+            hli.reset()
             result = "OK"
         except:
             result = "Error: %s" % (exception.message)

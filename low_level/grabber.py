@@ -12,11 +12,11 @@ from . import move
 # Notes:
 #   - Assumes positive motor direction is moving grabber down.
 #   - Two options for up position are at platform and two figures from the board.
-#   - Assumes motor starts in the down position.
+#   - Assumes motor starts in the up position.
 
 # Grabber up position in tacho counts down from position at platform
-up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
-#up_pos = 0  # at platform in cm
+#up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
+up_pos = 0  # at platform in cm
 up_pos = math.floor(up_pos) # round down
 
 # Grabber down position
@@ -26,7 +26,7 @@ down_pos = math.floor(down_pos) # round down
 # Thread Grabber
 class Thread:
     # Whether the grabber is in the up position
-    up = False
+    up = True
     # Whether the electromagnet is turned on
     on = False
     # Last error in tachos
@@ -38,7 +38,7 @@ class Thread:
     def __init__(self, motor):
         # Set motor and reset its position to preconfigured down
         self.motor = motor
-        self.motor.set_position(self.movement.cm_to_deg(down_pos))
+        self.motor.set_position(self.movement.cm_to_deg(up_pos))
 
         # Announce self
         print("Grabber created at %d and controlled by %s" % (self.motor.get_position(), self.motor.name))

@@ -119,6 +119,11 @@ class Gradual:
         start = motor.get_position()
         distance = math.fabs(angular - start)
 
+        # Skip if no movement required
+        if distance == 0:
+            print("Distance is zero. No movement required.")
+            return self.deg_to_cm(motor.get_position() - angular)
+
         # Start moving
         motor.run_to_abs_pos(angular, self.min_speed)
 

@@ -8,6 +8,7 @@ import socket
 from high_level import hli_implementation
 from low_level import arch, platform, grabber
 import ast
+import time
 
 # Instantiate LLI
 ar = arch.Arch()
@@ -36,43 +37,53 @@ def splitNcheck(message):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         try:
+            t0 = time.time()
             hli.move_piece(cell1,cell2)
-            result = "OK"
-        except:
-            result = "Error: %s" % (exception.message)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" % (repr(exception))
     elif(data[0] == "move" and len(data)==3):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         try:
+            t0 = time.time()
             hli.move(cell1,cell2)
-            result = "OK"
-        except:
-            result = "Error: %s" % (exception.message)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" % (repr(exception))
     elif(data[0] == "take_piece" and len(data)==4):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         piece_name = data[3]
         try:
+            t0 = time.time()
             hli.take_piece(cell1,cell2,piece_name)
-            result = "OK"
-        except:
-            result = "Error: %s" % (exception.message)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" % (repr(exception))
     elif(data[0] == "perform_castling_at" and len(data)==5):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
         cell3 = ast.literal_eval(data[3])
         cell4 = ast.literal_eval(data[4])
         try:
+            t0 = time.time()
             hli.perform_castling_at(cell1,cell2,cell3,cell4)
-            result = "OK"
-        except:
-            result = "Error: %s" % (exception.message)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" % (repr(exception))
     elif(data[0] == "reset"):
         try:
+            t0 = time.time()
             hli.reset()
-            result = "OK"
-        except:
-            result = "Error: %s" % (exception.message)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" % (repr(exception))
     else:
         print('No action')
     print(result)

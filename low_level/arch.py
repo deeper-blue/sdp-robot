@@ -50,7 +50,7 @@ class Arch:
 
         # Move along the rail until sensor is pressed
         while not ts2.is_pressed:
-            self.twins.run_direct(-20)
+            self.twins.run_direct(-30)
             time.sleep(0.01)
 
         self.twins.stop()

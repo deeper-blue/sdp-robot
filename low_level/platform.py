@@ -52,7 +52,7 @@ class Platform:
 
         # Platform moves until sensor is pressed
         while not ts1.is_pressed:
-            self.single.run_direct(-20)
+            self.single.run_direct(-30)
             time.sleep(0.01)
 
         self.single.stop()

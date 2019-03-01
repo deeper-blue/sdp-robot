@@ -20,19 +20,19 @@ column_length = 50
 buffer_offset = 12
 
 # Height of the board in cm
-board_height = 2.4
+board_height = 0
 
 # Tallest piece in cm
-tallest_piece = 7.9
+tallest_piece = 8.4
 
 # Wheel circumference in cm
 wheel_circ = 12.5
 
 # Grabber height in cm
-grabber_height = 24.9
+grabber_height = 23.6
 
 # Grabber wheel circumference in cm
-grabber_circ = 7.06
+grabber_circ = 6
 
 # Port of grabber motor
 grabber_motor_port = 'outD'

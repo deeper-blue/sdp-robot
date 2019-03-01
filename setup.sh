@@ -11,3 +11,6 @@ echo "raw" > /sys/class/lego-port/port2/mode
 # Set group and permissions to value of GPIO 121 to gpio and 664 (rw-rw-r--)
 chown root:gpio /sys/class/gpio/gpio121/value
 chmod 664 /sys/class/gpio/gpio121/value
+
+# Turn off
+echo 0 >> /sys/class/gpio/gpio121/value

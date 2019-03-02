@@ -56,7 +56,7 @@ touch_sensor_platform = 'in1'
 magnet_gpio_no = 121
 
 # Circumference of the platform wheels in cm
-platform_circ = 12.8
+platform_circ = 12.53
 
 # Centre of top rail in cm
 top_centre = 17

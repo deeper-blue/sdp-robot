@@ -26,7 +26,7 @@ board_height = 0
 tallest_piece = 8.4
 
 # Wheel circumference in cm
-wheel_circ = 12.5
+wheel_circ = 12.66
 
 # Grabber height in cm
 grabber_height = 23.6

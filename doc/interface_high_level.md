@@ -71,6 +71,20 @@ Would call the respective LLI functions to perform movement.
 - Castling move is performed.
 - Board state updated
 
+### `en_passant(cellA, cellB, cellTake, piece)`
+Performs en passant, moving a piece from `cellA` to `cellB` and taking the piece with identifier `piece` in `cellTake`.
+
+**Assumption**:
+
+- Robot is in preset state,
+- `cellB` is empty,
+- there are pawns in `cellA` and `cellTake`.
+
+**Effects**:
+
+- Pawn in `cellA` is moved to `cellB`,
+- pawn in `cellTake` is moved to the buffer cell based on supplied identifier,
+- robot resets.
 
 
 ## Notes

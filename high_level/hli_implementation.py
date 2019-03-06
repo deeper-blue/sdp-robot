@@ -77,7 +77,7 @@ class High_Level_Interface:
     def calibrate(self):
         print("Calibrating...")
         self.reset()
-        self.grabber.go_to_board()
+        self.grabber.go_down()
         input("Move frame so the grabber is over centre of L1, then press Enter.")
         self.grabber.go_up()
         print("Calibrated")

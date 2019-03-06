@@ -8,7 +8,7 @@
 from . import config
 
 preset_state = ('L', 1)
-current_state = ('A', 1)
+current_state = ('L', 1)
 
 
 # Dummy Arch

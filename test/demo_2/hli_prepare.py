@@ -12,4 +12,4 @@ pl = platform.Platform()
 gr = grabber.grabber
 
 # Instantiate hli
-hli = hli_implementation.High_Level_Interface(('A',1), ar, pl, gr)
+hli = hli_implementation.High_Level_Interface(('L',1), ar, pl, gr)

@@ -3,7 +3,7 @@
 # Author(s):
 #   Filip Smola
 
-from test.qa import *
+from test.qa import arch_indep, platform_indep, grabber_indep, grabber_in_place, integrated_one, integrated_continuous
 
 message = """Available Quantitative Analyses:
     0) Exit
@@ -18,7 +18,7 @@ separator = "=========="
 
 while True:
     print(message)
-    n = input("Select a number:")
+    n = int(input("Select a number:\n"))
 
     print(separator)
     if n == 1:

@@ -16,7 +16,7 @@ from . import move
 
 # Grabber up position in tacho counts down from position at platform
 #up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
-up_pos = 0  # at platform in cm
+up_pos = 1  # at platform in cm
 up_pos = math.floor(up_pos) # round down
 
 # Grabber down position

@@ -7,7 +7,7 @@
 
 from . import config
 
-preset_state = ('A', 1)
+preset_state = ('L', 1)
 current_state = ('A', 1)
 
 
@@ -32,7 +32,6 @@ class High_Level_Interface:
 
         # Changing state to preset cell
         self.current_state = preset_state
-
 
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):

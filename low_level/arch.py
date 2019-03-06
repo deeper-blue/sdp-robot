@@ -26,7 +26,7 @@ class Arch:
 
     # Reset position on construction
     def __init__(self):
-        self.twins.set_position(movement.cm_to_deg(self.position))
+        self.twins.set_position(-1 * self.movement.cm_to_deg(self.position))
 
     # Go to specified cell's column
     def go_to_cell(self, cell):

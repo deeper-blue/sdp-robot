@@ -26,7 +26,7 @@ class Platform:
 
     # Reset position on construction
     def __init__(self):
-        self.single.set_position(movement.cm_to_deg(self.position))
+        self.single.set_position(self.movement.cm_to_deg(self.position))
         self.movement.speed_long = 150
 
     # Go to specified cell's row

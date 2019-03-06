@@ -25,6 +25,7 @@ down_pos = math.floor(down_pos) # round down
 
 # Grabber board position
 board_pos = config.grabber_height - config.board_height # in cm
+board_pos -= 1  # just above board
 
 # Thread Grabber
 class Thread:

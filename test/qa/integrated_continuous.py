@@ -8,24 +8,25 @@
 import time
 from test.demo_2 import hli_prepare as env
 
-# Reset and move piece
-env.hli.reset()
+def run():
+    # Reset and move piece
+    env.hli.reset()
 
-# Repeat experiment
-print("Starting Integrated Continuous A1<->L8 QA")
-forward = True  # A1->L8 iff true
-comm = ""
-i = 0
-while comm != "stop":
-    i += 1;
+    # Repeat experiment
+    print("Starting Integrated Continuous A1<->L8 QA")
+    forward = True  # A1->L8 iff true
+    comm = ""
+    i = 0
+    while comm != "stop":
+        i += 1;
 
-    if forward:
-        env.hli.move_piece(('A',1),('L',8))
-        forward = False
-    else:
-        env.hli.move_piece(('L',8),('A',1))
-        forward = True
+        if forward:
+            env.hli.move_piece(('A',1),('L',8))
+            forward = False
+        else:
+            env.hli.move_piece(('L',8),('A',1))
+            forward = True
 
-    comm = input("Input stop to terminate, anything else to continue.")
+        comm = input("Input stop to terminate, anything else to continue.")
 
-print("Count: %d" % (i))
+    print("Count: %d" % (i))

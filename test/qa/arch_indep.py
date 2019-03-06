@@ -6,21 +6,22 @@
 import time
 from test.demo_2 import hli_prepare as env
 
-# Reset, centre platform and go to 0
-env.hli.reset()
-env.pl.centre()
-env.ar.move(0)
-
-# Repeat experiment
-print("Starting Arch QA")
-errors = []
-for i in range(0,10):
-    time.sleep(2)
-    env.ar.move(50)
-    errors.append(env.ar.error)
-    env.ar.print_state()
-    input("Waiting for Enter...")
+def run():
+    # Reset, centre platform and go to 0
+    env.hli.reset()
+    env.pl.centre()
     env.ar.move(0)
 
-# Print errors
-print("Perceived errors: %s cm" % (errors))
+    # Repeat experiment
+    print("Starting Arch QA")
+    errors = []
+    for i in range(0,10):
+        time.sleep(2)
+        env.ar.move(50)
+        errors.append(env.ar.error)
+        env.ar.print_state()
+        input("Waiting for Enter...")
+        env.ar.move(0)
+
+    # Print errors
+    print("Perceived errors: %s cm" % (errors))

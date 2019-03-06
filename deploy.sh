@@ -17,6 +17,6 @@ else
 fi
 
 remote="robot@$host:/home/robot/robot"
-files="start.sh setup.sh stop.py test.py run.py ./test ./low_level ./high_level ./comms"
+files="start.sh setup.sh qa.sh stop.py test.py run.py qa.py ./test ./low_level ./high_level ./comms"
 
 scp -r $files $remote

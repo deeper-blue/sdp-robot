@@ -25,11 +25,34 @@ class High_Level_Interface:
     def convert_cell(self, cell):
         return (ord(cell[0]) - 65, cell[1] - 1)
 
+    # Move frame to cell
+    def go_to_cell(self, cell, converted = False):
+        if not converted:
+            cell = self.convert_cell(cell)
+
+        self.arch.go_to_cell(cell)
+        self.platform.go_to_cell(cell)
+
+    # Pick a piece up (includes waiting)
+    def pick_up(self):
+        time.sleep(grabber_wait)
+        self.grabber.go_down()
+        self.grabber.turn_on()
+        self.grabber.go_up()
+        time.sleep(grabber_wait)
+
+    # Put a piece down (includes waiting)
+    def put_down(self):
+        time.sleep(grabber_wait)
+        self.grabber.go_down()
+        self.grabber.turn_off()
+        self.grabber.go_up()
+        time.sleep(grabber_wait)
+
     # Move piece to empty square
     def move_piece(self, cellA, cellB):
         self.move(cellA, cellB)
         self.reset()
-
 
     # Move piece in cellA to cellB
     def move(self, cellA, cellB):
@@ -38,28 +61,11 @@ class High_Level_Interface:
         cellA = self.convert_cell(cellA)
         cellB = self.convert_cell(cellB)
 
-        # Move to cellA
-        self.arch.go_to_cell(cellA)
-        self.platform.go_to_cell(cellA)
-
-        # Pick up piece at cellA
-        time.sleep(grabber_wait)
-        self.grabber.go_down()
-        self.grabber.turn_on()
-        self.grabber.go_up()
-        time.sleep(grabber_wait)
-
-        # Move to cellB
-        self.arch.go_to_cell(cellB)
-        self.platform.go_to_cell(cellB)
-
-        # Place piece at cellB
-        time.sleep(grabber_wait)
-        self.grabber.go_down()
-        self.grabber.turn_off()
-        self.grabber.go_up()
-        time.sleep(grabber_wait)
-
+        # Move to cellA -> pick up -> move to cellB -> place
+        self.go_to_cell(cellA, True)
+        self.pick_up()
+        self.go_to_cell(cellB, True)
+        self.put_down()
 
     # Go to reset by going to preset state
     def reset(self):

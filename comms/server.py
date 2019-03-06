@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # 'Server' will first receive the message, then separate the string bases on the ';'
 # and call the corresponding function from high level interface
+#
 # Author(s):
 #   Wanjing Chen
+#   Filip Smola
 
 import socket
 from high_level import hli_implementation
@@ -84,6 +86,18 @@ def splitNcheck(message):
             result = "OK (%f s)" % (t1 - t0)
         except Exception as exception:
             result = "Error: %s" % (repr(exception))
+    elif(data[0] == "en_passant"):
+        cellA = ast.literal_eval(data[1])
+        cellB = ast.literal_eval(data[2])
+        cellTake = ast.literal_eval(data[3])
+        piece = data[4]
+        try:
+            t0 = time.time()
+            hli.en_passant(cellA, cellB, cellTake, piece)
+            t1 = time.time()
+            result = "OK (%f s)" % (t1 - t0)
+        except Exception as exception:
+            result = "Error: %s" %(repr(exception))
     else:
         print('No action')
     print(result)

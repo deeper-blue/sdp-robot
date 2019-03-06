@@ -3,6 +3,7 @@
 #
 # Author(s):
 #   Stewart Wilson
+#   Filip Smola
 
 import time
 from . import config
@@ -90,6 +91,14 @@ class High_Level_Interface:
 
         self.move(cellA, cellC)
         self.move(cellB, cellD)
+        self.reset()
+
+    # En passant from cellA to cellB and taking from cellTake
+    def en_passant(self, cellA, cellB, cellTake, piece):
+        print("Performing en passant from %s to %s, taking %s from %s" % (cellA, cellB, piece, cellTake))
+
+        self.move(cellA, cellB)
+        self.move(cellTake, config.buffer_cells[piece])
         self.reset()
 
 hli = High_Level_Interface(preset_state, arch, platform, grabber)

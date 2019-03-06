@@ -4,6 +4,7 @@
 #
 # Author(s):
 #   Stewart Wilson
+#   Filip Smola
 
 from . import config
 
@@ -49,7 +50,11 @@ class High_Level_Interface:
         self.move(cellB, cellD)
         self.reset()
 
-
+    # En passant from cellA to cellB and taking from cellTake
+    def en_passant(self, cellA, cellB, cellTake, piece):
+        self.move(cellA, cellB)
+        self.move(cellTake, config.buffer_cells[piece])
+        self.reset()
 
 
 hli = High_Level_Interface()

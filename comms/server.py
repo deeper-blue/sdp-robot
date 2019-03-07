@@ -61,7 +61,7 @@ def splitNcheck(message):
         piece = ast.literal_eval(data[3])
         try:
             t0 = time.time()
-            hli.take_piece(cell1,cell2,piece_name)
+            hli.take_piece(cell1,cell2,piece)
             t1 = time.time()
             result = "OK (%f s)" % (t1 - t0)
         except Exception as exception:

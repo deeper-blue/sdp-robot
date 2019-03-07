@@ -18,7 +18,7 @@ pl = platform.Platform()
 gr = grabber.grabber
 
 # Instantiate HLI
-hli = hli_implementation.High_Level_Interface(('A',1), ar, pl, gr)
+hli = hli_implementation.High_Level_Interface(('L',1), ar, pl, gr)
 
 HOST = '192.168.105.116'  # Ev3 address
 PORT = 64432        # Port to listen on (non-privileged ports are > 1023)

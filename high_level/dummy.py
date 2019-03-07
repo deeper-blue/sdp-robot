@@ -8,8 +8,8 @@
 
 from . import config
 
-preset_state = ('A', 1)
-current_state = ('A', 1)
+preset_state = ('L', 1)
+current_state = ('L', 1)
 
 
 # Dummy Arch
@@ -34,6 +34,12 @@ class High_Level_Interface:
         # Changing state to preset cell
         self.current_state = preset_state
 
+    # Run calibration
+    def calibrate(self):
+        print("Calibrating...")
+        self.reset()
+        input("Move frame so the grabber is over centre of L1, then press Enter.")
+        print("Calibrated")
 
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):

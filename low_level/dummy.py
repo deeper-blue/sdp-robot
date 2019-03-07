@@ -109,32 +109,43 @@ class Platform:
 
 # Dummy Grabber
 class Grabber:
-    # Whether the grabber is in the up position
-    up = True
+    # What position the grabber is in (up, down, board)
+    position = 'up'
     # Whether the electromagnet is turned on
     on = False
 
     # Move grabber into the up position
     def go_up(self):
         # Check not up
-        if self.up:
+        if self.position == 'up':
             print("Warning: Grabber already up.")
             return
 
         # Pretend
         print("Moving Grabber up.")
-        self.up = True
+        self.position = 'up'
 
     # Move grabber into the down position
     def go_down(self):
         # Check not down
-        if not self.up:
+        if self.position == 'down':
             print("Warning: Grabber already down.")
             return
 
         # Pretend
         print("Moving Grabber down.")
-        self.up = False
+        self.position = 'down'
+
+    # Move grabber to the board
+    def go_to_board(self):
+        # Check not board
+        if self.position == 'board':
+            print("Warning: Grabber already at board.")
+            return
+
+        # Print info and update state
+        print("Grabber:\t Moved to board (error: %d cm)" % (self.last_error))
+        self.position = 'board'
 
     # Turn electromagnet on
     def turn_on(self):
@@ -150,7 +161,7 @@ class Grabber:
 
     # Print state summary
     def print_state(self):
-        print("Dummy Grabber: up = %s; on = %s" % ("True" if self.up else "False", "true" if self.on else "false"))
+        print("Dummy Grabber: position = %s; on = %s" % (self.position, "true" if self.on else "false"))
 
 # Instantiate the component objects
 arch = Arch()

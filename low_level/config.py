@@ -80,10 +80,10 @@ def cell_column_cm(n):
 def cell_row_cm(n):
     return n * square_length
 
-# Arch reset position is its maximum position
-arch_reset_position = row_length
+# Arch reset position is column L
+arch_reset_position = cell_column_cm(11)
 
-# Platform reset position is origin
-platform_reset_position = 0
+# Platform reset position is row 1
+platform_reset_position = cell_row_cm(0)
 
 #--- End Processing

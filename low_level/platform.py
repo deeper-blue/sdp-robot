@@ -16,7 +16,7 @@ threshold = 10.0
 # Implemented platform
 class Platform:
     # Internal position in cm (along top rail)
-    position = 0
+    position = config.cell_row_cm(0)
     # Expected error in cm (internal - real)
     error = 0
     # Get single motor
@@ -26,7 +26,7 @@ class Platform:
 
     # Reset position on construction
     def __init__(self):
-        self.single.set_position(0)
+        self.single.set_position(self.movement.cm_to_deg(self.position))
         self.movement.speed_long = 150
 
     # Go to specified cell's row

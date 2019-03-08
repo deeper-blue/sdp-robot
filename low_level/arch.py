@@ -15,8 +15,8 @@ threshold = 10.0
 
 # Implemented Arch
 class Arch:
-    # Internal position in cm (along bottom rail)
-    position = 0
+    # Internal position in cm (along bottom rail) default: L
+    position = config.cell_column_cm(11)
     # Expected error in cm (internal - real)
     error = 0
     # Get twin motors
@@ -26,7 +26,7 @@ class Arch:
 
     # Reset position on construction
     def __init__(self):
-        self.twins.set_position(0)
+        self.twins.set_position(-1 * self.movement.cm_to_deg(self.position))
 
     # Go to specified cell's column
     def go_to_cell(self, cell):

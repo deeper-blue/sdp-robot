@@ -17,16 +17,18 @@ from . import move
 # Grabber up position in tacho counts down from position at platform
 #up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
 up_pos = 0  # at platform in cm
-up_pos = math.floor(up_pos) # round down
 
 # Grabber down position
 down_pos = config.grabber_height - (config.board_height + config.tallest_piece) # in cm
-down_pos = math.floor(down_pos) # round down
+
+# Grabber board position
+board_pos = config.grabber_height - config.board_height # in cm
+board_pos -= 1  # just above board
 
 # Thread Grabber
 class Thread:
-    # Whether the grabber is in the up position
-    up = True
+    # What position the grabber is in (up, down, board)
+    position = 'up'
     # Whether the electromagnet is turned on
     on = False
     # Last error in tachos
@@ -48,7 +50,7 @@ class Thread:
     # Move grabber into the up position
     def go_up(self):
         # Check not up
-        if self.up:
+        if self.position == 'up' :
             print("Warning: Grabber already up.")
             return
 
@@ -57,12 +59,12 @@ class Thread:
 
         # Print info and update state
         print("Grabber:\tMoved up (error: %d cm)" % (self.last_error))
-        self.up = True
+        self.position = 'up'
 
     # Move grabber into the down position
     def go_down(self):
         # Check not down
-        if not self.up:
+        if self.position == 'down':
             print("Warning: Grabber already down.")
             return
 
@@ -71,7 +73,21 @@ class Thread:
 
         # Print info and update state
         print("Grabber:\tMoved down (error: %d cm)" % (self.last_error))
-        self.up = False
+        self.position = 'down'
+
+    # Move grabber to the board
+    def go_to_board(self):
+        # Check not board
+        if self.position == 'board':
+            print("Warning: Grabber already at board.")
+            return
+
+        # Move motor to configured board position
+        self.last_error = self.movement.move_to(self.motor, board_pos)
+
+        # Print info and update state
+        print("Grabber:\t Moved to board (error: %d cm)" % (self.last_error))
+        self.position = 'board'
 
     # Turn electromagnet on
     def turn_on(self):
@@ -97,7 +113,7 @@ class Thread:
 
     # Print state summary
     def print_state(self):
-        print("Grabber: up = %s; on = %s" % ("True" if self.up else "False", "true" if self.on else "false"))
+        print("Grabber: position = %s; on = %s" % (self.position, "true" if self.on else "false"))
 
 # Instantiate default object
 grabber = Thread(motor.Single(config.grabber_motor_port))

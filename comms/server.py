@@ -32,7 +32,7 @@ class Server:
         # Accept connections
         while True:
             # Accept connection
-            conn, add = self.s.accept()
+            conn, addr = self.s.accept()
             print('Connected by', addr)
 
             # Receive message until empty
@@ -42,7 +42,7 @@ class Server:
                     break
 
                 # Invoke HLI function and get response
-                response = splitNcheck(message)
+                response = self.splitNcheck(message)
 
                 # Send the byte message response back to the client
                 conn.sendall(str.encode(response))

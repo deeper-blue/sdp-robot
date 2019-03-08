@@ -23,9 +23,6 @@ class High_Level_Interface:
         self.platform = platform
         self.grabber = grabber
 
-    def convert_cell(self, cell):
-        return (ord(cell[0]) - 65, cell[1] - 1)
-
     # Move piece to empty square
     def move_piece(self, cellA, cellB):
         self.move(cellA, cellB)
@@ -36,8 +33,11 @@ class High_Level_Interface:
     def move(self, cellA, cellB):
         print("Moving piece at %s to %s\n" % (cellA, cellB))
 
-        cellA = self.convert_cell(cellA)
-        cellB = self.convert_cell(cellB)
+        # Convert cells if their first isn't an integer
+        if not isinstance(cellA[0], int):
+            cellA = config.convert_cell(cellA)
+        if not isinstance(cellB[0], int):
+            cellB = config.convert_cell(cellB)
 
         # Move to cellA
         self.arch.go_to_cell(cellA)
@@ -87,7 +87,7 @@ class High_Level_Interface:
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):
         # Get buffer cell for piece
-        buffer_cell = config.buffer_cells[piece]
+        buffer_cell = config.buffer_cell(piece)
 
         print("Taking piece, %s, at %s with piece at %s\n" % (piece, cellB, cellA))
         self.move(cellB, buffer_cell)
@@ -107,7 +107,7 @@ class High_Level_Interface:
         print("Performing en passant from %s to %s, taking %s from %s" % (cellA, cellB, piece, cellTake))
 
         self.move(cellA, cellB)
-        self.move(cellTake, config.buffer_cells[piece])
+        self.move(cellTake, config.buffer_cell(piece))
         self.reset()
 
 hli = High_Level_Interface(preset_state, arch, platform, grabber)

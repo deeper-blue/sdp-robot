@@ -44,7 +44,7 @@ class High_Level_Interface:
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):
         # Get buffer cell for piece
-        buffer_cell = config.buffer_cells[piece]
+        buffer_cell = config.buffer_cell(piece)
 
         self.move(cellB, buffer_cell)
         self.move(cellA, cellB)
@@ -59,7 +59,7 @@ class High_Level_Interface:
     # En passant from cellA to cellB and taking from cellTake
     def en_passant(self, cellA, cellB, cellTake, piece):
         self.move(cellA, cellB)
-        self.move(cellTake, config.buffer_cells[piece])
+        self.move(cellTake, config.buffer_cell(piece))
         self.reset()
 
 

@@ -58,10 +58,10 @@ def splitNcheck(message):
     elif(data[0] == "take_piece" and len(data)==4):
         cell1 = ast.literal_eval(data[1])
         cell2 = ast.literal_eval(data[2])
-        piece_name = data[3]
+        piece = ast.literal_eval(data[3])
         try:
             t0 = time.time()
-            hli.take_piece(cell1,cell2,piece_name)
+            hli.take_piece(cell1,cell2,piece)
             t1 = time.time()
             result = "OK (%f s)" % (t1 - t0)
         except Exception as exception:
@@ -90,7 +90,7 @@ def splitNcheck(message):
         cellA = ast.literal_eval(data[1])
         cellB = ast.literal_eval(data[2])
         cellTake = ast.literal_eval(data[3])
-        piece = data[4]
+        piece = ast.literal_eval(data[4])
         try:
             t0 = time.time()
             hli.en_passant(cellA, cellB, cellTake, piece)

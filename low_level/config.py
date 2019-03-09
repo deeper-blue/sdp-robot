@@ -8,31 +8,31 @@
 #--- Start Configuration
 
 # The length of one side of a square on the chess board in cm
-square_length = 4.1
+square_length = 5.09
 
 # Total length of row in cm (start of board to end of buffer)
-row_length = 58
+#row_length = 57.5
 
 # Total length of the columns in cm (top platform)
-column_length = 50
+#column_length = 35
 
 # The length from the end of the last row to the start of the buffer in cm
-buffer_offset = 12
+buffer_offset = 2.54
 
 # Height of the board in cm
 board_height = 0
 
 # Tallest piece in cm
-tallest_piece = 8.4
+tallest_piece = 3.0
 
 # Wheel circumference in cm
 wheel_circ = 12.66
 
 # Grabber height in cm
-grabber_height = 23.6
+grabber_height = 24
 
 # Grabber wheel circumference in cm
-grabber_circ = 6
+grabber_circ = 6.6
 
 # Port of grabber motor
 grabber_motor_port = 'outD'

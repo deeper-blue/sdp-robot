@@ -3,6 +3,7 @@
 #
 # Author(s):
 #   Stewart Wilson
+#   Filip Smola
 
 import time
 from . import config
@@ -22,14 +23,10 @@ class High_Level_Interface:
         self.platform = platform
         self.grabber = grabber
 
-    def convert_cell(self, cell):
-        return (ord(cell[0]) - 65, cell[1] - 1)
-
     # Move frame to cell
     def go_to_cell(self, cell, converted = False):
         if not converted:
-            cell = self.convert_cell(cell)
-
+            cell = config.convert_cell(cell)
         self.arch.go_to_cell(cell)
         self.platform.go_to_cell(cell)
 
@@ -58,8 +55,11 @@ class High_Level_Interface:
     def move(self, cellA, cellB):
         print("Moving piece at %s to %s\n" % (cellA, cellB))
 
-        cellA = self.convert_cell(cellA)
-        cellB = self.convert_cell(cellB)
+        # Convert cells if their first isn't an integer
+        if not isinstance(cellA[0], int):
+            cellA = config.convert_cell(cellA)
+        if not isinstance(cellB[0], int):
+            cellB = config.convert_cell(cellB)
 
         # Move to cellA -> pick up -> move to cellB -> place
         self.go_to_cell(cellA, True)
@@ -79,11 +79,20 @@ class High_Level_Interface:
         # Changing state to preset cell
         self.current_state = preset_state
 
+    # Run calibration
+    def calibrate(self):
+        print("Calibrating...")
+        self.reset()
+        self.grabber.go_down()
+        input("Move frame so the grabber is over centre of L1, then press Enter.")
+        self.grabber.go_up()
+        print("Calibrated")
+
 
     # Take piece in cellB and replace with one in cellA
     def take_piece(self, cellA, cellB, piece):
         # Get buffer cell for piece
-        buffer_cell = config.buffer_cells[piece]
+        buffer_cell = config.buffer_cell(piece)
 
         print("Taking piece, %s, at %s with piece at %s\n" % (piece, cellB, cellA))
         self.move(cellB, buffer_cell)
@@ -96,6 +105,14 @@ class High_Level_Interface:
 
         self.move(cellA, cellC)
         self.move(cellB, cellD)
+        self.reset()
+
+    # En passant from cellA to cellB and taking from cellTake
+    def en_passant(self, cellA, cellB, cellTake, piece):
+        print("Performing en passant from %s to %s, taking %s from %s" % (cellA, cellB, piece, cellTake))
+
+        self.move(cellA, cellB)
+        self.move(cellTake, config.buffer_cell(piece))
         self.reset()
 
 hli = High_Level_Interface(preset_state, arch, platform, grabber)

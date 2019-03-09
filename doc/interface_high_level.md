@@ -34,12 +34,14 @@ Would call the respective LLI functions to perform movement. Only used when taki
 
 ### `take_piece(cellA, cellB, piece)`
 Take the current piece at cellB, move it to buffer, and replace it with piece at cellB. Then reset.
+The piece is identified by its original position, which is used to compute its buffer position.
 Would call the respective LLI functions to perform movement.
 
 **Assumptions**:
 
 - The physical robot is in its preset state (i.e. arch centered, etc).
 - There is an actual piece there
+- `piece` is the original cell of the piece in `cellB`.
 
 **Effects**:
 
@@ -71,6 +73,22 @@ Would call the respective LLI functions to perform movement.
 - Castling move is performed.
 - Board state updated
 
+### `en_passant(cellA, cellB, cellTake, piece)`
+Performs en passant, moving a piece from `cellA` to `cellB` and taking the piece with original position `piece` in `cellTake`.
+The piece is identified by its original position, which is used to compute its buffer position.
+
+**Assumption**:
+
+- Robot is in preset state,
+- `cellB` is empty,
+- there are pawns in `cellA` and `cellTake`,
+- `piece` is the original cell of the piece in `cellTake`.
+
+**Effects**:
+
+- Pawn in `cellA` is moved to `cellB`,
+- pawn in `cellTake` is moved to the buffer cell based on supplied identifier,
+- robot resets.
 
 
 ## Notes

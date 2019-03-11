@@ -23,7 +23,7 @@ buffer_offset = 2.54
 board_height = 0
 
 # Tallest piece in cm
-tallest_piece = 3.0
+tallest_piece = 3.7
 
 # Wheel circumference in cm
 wheel_circ = 12.66

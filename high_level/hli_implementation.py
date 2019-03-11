@@ -14,6 +14,14 @@ preset_state = ('L', 1)
 # Time to wait around grabber up/down (in second)
 grabber_wait = 1
 
+# Compute adjustment needed based on platform position
+# TODO de-magic numbers
+def adjust(plat):
+    max_adj = 0.7
+    pl_range = 55
+    x = plat/pl_range - 0.5
+    return max_adj * (x * x)
+
 # Dummy Arch
 class High_Level_Interface:
 
@@ -33,7 +41,7 @@ class High_Level_Interface:
     # Pick a piece up (includes waiting)
     def pick_up(self):
         time.sleep(grabber_wait)
-        self.grabber.go_down()
+        self.grabber.go_down(adjust(self.platform.position))
         self.grabber.turn_on()
         self.grabber.go_up()
         time.sleep(grabber_wait)
@@ -41,7 +49,7 @@ class High_Level_Interface:
     # Put a piece down (includes waiting)
     def put_down(self):
         time.sleep(grabber_wait)
-        self.grabber.go_down()
+        self.grabber.go_down(adjust(self.platform.position))
         self.grabber.turn_off()
         self.grabber.go_up()
         time.sleep(grabber_wait)

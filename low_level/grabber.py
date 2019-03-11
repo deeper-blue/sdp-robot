@@ -62,14 +62,17 @@ class Thread:
         self.position = 'up'
 
     # Move grabber into the down position
-    def go_down(self):
+    def go_down(self, adjust = 0):
         # Check not down
         if self.position == 'down':
             print("Warning: Grabber already down.")
             return
 
+        # Adjust target
+        target = down_pos + adjust
+
         # Move motor to configured down position
-        self.last_error = self.movement.move_to(self.motor, down_pos)
+        self.last_error = self.movement.move_to(self.motor, target)
 
         # Print info and update state
         print("Grabber:\tMoved down (error: %d cm)" % (self.last_error))

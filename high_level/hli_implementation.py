@@ -35,6 +35,7 @@ class High_Level_Interface:
     def go_to_cell(self, cell, converted = False):
         if not converted:
             cell = config.convert_cell(cell)
+        self.platform.centre()
         self.arch.go_to_cell(cell)
         self.platform.go_to_cell(cell)
 

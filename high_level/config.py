@@ -7,7 +7,10 @@
 
 #--- Start Configuration
 def convert_cell(cell):
-    return (ord(cell[0]) - 65, cell[1] - 1)
+    if isinstance(cell[0], int):
+        return cell
+    else:
+        return (ord(cell[0].upper()) - 65, cell[1] - 1)
 
 def buffer_cell(original):
     # Convert cell if its first isn't an integer

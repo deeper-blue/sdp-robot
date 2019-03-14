@@ -79,7 +79,7 @@ class Server:
         elif(data[0] == "take_piece" and len(data)==4):
             cell1 = ast.literal_eval(data[1])
             cell2 = ast.literal_eval(data[2])
-            piece_name = data[3]
+            piece_name = ast.literal_eval(data[3])
             try:
                 t0 = time.time()
                 self.hli.take_piece(cell1,cell2,piece_name)
@@ -111,7 +111,7 @@ class Server:
             cellA = ast.literal_eval(data[1])
             cellB = ast.literal_eval(data[2])
             cellTake = ast.literal_eval(data[3])
-            piece = data[4]
+            piece = ast.literal_eval(data[4])
             try:
                 t0 = time.time()
                 self.hli.en_passant(cellA, cellB, cellTake, piece)

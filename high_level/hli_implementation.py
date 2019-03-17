@@ -15,12 +15,9 @@ preset_state = ('L', 1)
 grabber_wait = 1
 
 # Compute adjustment needed based on platform position
-# TODO de-magic numbers
 def adjust(plat):
-    max_adj = 0.7
-    pl_range = 55
-    x = plat/pl_range - 0.5
-    return max_adj * (x * x)
+    x = plat / config.top_bend_range - 0.5
+    return config.top_bend_max * (x * x)
 
 # Dummy Arch
 class High_Level_Interface:

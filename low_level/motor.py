@@ -50,7 +50,7 @@ class Twin:
     # Delegate to both motors
     def run_direct(self, duty_cycle):
         self.main.run_direct(duty_cycle_sp = duty_cycle)
-        self.slave.run_direct(duty_cycle_sp = duty_cycle)
+        self.slave.run_direct(duty_cycle_sp = 1.05 * duty_cycle)
 
     # Delegate to both motors
     def run_to_rel_pos(self, position, speed):

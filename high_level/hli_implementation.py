@@ -14,6 +14,11 @@ preset_state = ('L', 1)
 # Time to wait around grabber up/down (in second)
 grabber_wait = 1
 
+# Compute adjustment needed based on platform position
+def adjust(plat):
+    x = plat / config.top_bend_range - 0.5
+    return config.top_bend_max * (x * x)
+
 # Dummy Arch
 class High_Level_Interface:
 
@@ -23,6 +28,7 @@ class High_Level_Interface:
         self.platform = platform
         self.grabber = grabber
 
+<<<<<<< HEAD
     # Move piece to empty square
     def move_piece(self, cellA, cellB):
         self.move(cellA, cellB)
@@ -42,25 +48,72 @@ class High_Level_Interface:
         # Move to cellA
         self.arch.go_to_cell(cellA)
         self.platform.go_to_cell(cellA)
+||||||| merged common ancestors
+    def convert_cell(self, cell):
+        return (ord(cell[0]) - 65, cell[1] - 1)
 
-        # Pick up piece at cellA
+    # Move piece to empty square
+    def move_piece(self, cellA, cellB):
+        self.move(cellA, cellB)
+        self.reset()
+
+
+    # Move piece in cellA to cellB
+    def move(self, cellA, cellB):
+        print("Moving piece at %s to %s\n" % (cellA, cellB))
+
+        cellA = self.convert_cell(cellA)
+        cellB = self.convert_cell(cellB)
+
+        # Move to cellA
+        self.arch.go_to_cell(cellA)
+        self.platform.go_to_cell(cellA)
+=======
+    # Move frame to cell
+    def go_to_cell(self, cell, converted = False):
+        if not converted:
+            cell = config.convert_cell(cell)
+        self.platform.centre()
+        self.arch.go_to_cell(cell)
+        self.platform.go_to_cell(cell)
+>>>>>>> feature/qa-scripts
+
+    # Pick a piece up (includes waiting)
+    def pick_up(self):
         time.sleep(grabber_wait)
-        self.grabber.go_down()
+        self.grabber.go_down(adjust(self.platform.position))
         self.grabber.turn_on()
         self.grabber.go_up()
         time.sleep(grabber_wait)
 
-        # Move to cellB
-        self.arch.go_to_cell(cellB)
-        self.platform.go_to_cell(cellB)
-
-        # Place piece at cellB
+    # Put a piece down (includes waiting)
+    def put_down(self):
         time.sleep(grabber_wait)
-        self.grabber.go_down()
+        self.grabber.go_down(adjust(self.platform.position))
         self.grabber.turn_off()
         self.grabber.go_up()
         time.sleep(grabber_wait)
 
+    # Move piece to empty square
+    def move_piece(self, cellA, cellB):
+        self.move(cellA, cellB)
+        self.reset()
+
+    # Move piece in cellA to cellB
+    def move(self, cellA, cellB):
+        print("Moving piece at %s to %s\n" % (cellA, cellB))
+
+        # Convert cells if their first isn't an integer
+        if not isinstance(cellA[0], int):
+            cellA = config.convert_cell(cellA)
+        if not isinstance(cellB[0], int):
+            cellB = config.convert_cell(cellB)
+
+        # Move to cellA -> pick up -> move to cellB -> place
+        self.go_to_cell(cellA, True)
+        self.pick_up()
+        self.go_to_cell(cellB, True)
+        self.put_down()
 
     # Go to reset by going to preset state
     def reset(self):

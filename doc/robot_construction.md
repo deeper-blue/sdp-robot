@@ -3,6 +3,8 @@
 # Hardware Setup
 
 ## Components
+TODO mention EV3?
+
 The robot consists of the following components:
 
 - Board
@@ -55,9 +57,15 @@ TODO: fix numbering
 4. Attach the EV3 and circuit holder to the top rails.
     **TODO**: this will need a picture, or very long description
 5. Place the Platform on the top rail with its reset button facing toward decreasing rows and the barrier on one of the legs.
-...
-
-TODO
+    In order to improve wheel alignment, align the ends of one of the axles with the legs of the EV3 and circuit holder.
+6. Place the EV3 into the smaller slot on the holder, and the circuit box into the larger slot on the holder.
+    While placing the circuit box, take care to keep the yellow and orange wires going under the box around the inner side (this is to aid Grabber connection).
+7. Connect all motors and sensors to the EV3 ports indicated by labels on the devices using the accordingly labeled cables.
+    If any of the cables are hanging loosely, you can use special points on the structure to secure them (**TODO** pictures).
+8. Connect the Grabber control circuit to Port 3 of the EV3.
+9. Connect the reb-black wire on the Platform to the yellow-orange wire from the Grabber control circuit (the orientation doesn't matter).
+    Again, make sure the connection is made through the centre of the EV3 and circuit holder.
+    This way there is minimal chance of the wire interfering with the Platform's movement.
 
 # Hardware Use
 

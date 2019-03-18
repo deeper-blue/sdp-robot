@@ -3,8 +3,6 @@
 # Hardware Setup
 
 ## Components
-TODO mention EV3?
-
 The robot consists of the following components:
 
 - Board
@@ -42,7 +40,10 @@ This is the electromagnet suspended from the Platform.
 It is responsible for holding a piece as it is moved around the board.
 The electromagnet is powered by a separate battery pack and the flow of power to it is controller from Port 3 on the EV3 through a dedicated circuit.
 
-TODO sensor?
+## Control
+The components are controlled from the EV3 brick.
+It directly controls all the motors and uses the touch sensors to detect when its components get to predefined reset positions.
+Control of the electromagnet is facilitated by a special circuit that allows the EV3 to use one of its ports to control the flow of power from a battery pack to the electromagnet.
 
 ## Assembly
 TODO: fix numbering

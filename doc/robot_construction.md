@@ -70,14 +70,28 @@ TODO: fix numbering
 # Hardware Use
 
 ## Power
-TODO charging
-TODO circuit batteries
+The EV3 is powered by an accumulator.
+The state (voltage) of its battery can be seen at the top-right corner of its screen.
+This value should be kept above 7 V (**TODO** test for actual minimum?).
+Charging can be done either when the robot is not active, or even when the robot is active &mdash; although then some care must be taken for the charging cable to move freely with the Arch without snagging and potentially tipping it over.
+
+The Grabber's electromagnet is powered by a separate pack of 6 AA batteries providing together 9 V.
+The electromagnet is only powered when it is moving a piece, therefore there is not much strain on this battery pack.
+Nevertheless, should they become discharged, they can be switched out for a charged set as long as the robot is inactive or on stand by (i.e. not actively playing a game).
 
 ## Turning the Robot On
-TODO
+To turn the robot on, press the centre button on the EV3.
+A red light will turn on under the button while the EV3 is booting up.
+Once it turns green, you can use the centre five buttons to select the File Manager option in the menu, navigate to the folder `robot` (absolute path is `/home/robot/robot`) and there select the file `start.sh`.
+This script prepares the environment, initializes the system, resets the robot (running Arch and Platform to edges to ensure correct position) and prepares to connect to a Controller and receive commands.
 
 ## Maintenance
-TODO
+To ensure optimal performance:
+
+- The EV3 battery should be at 8 V or more before use.
+- The Grabber should be positioned freely just under the Platform before the robot is started.
+- There must be no obstacles (especially cables) in either set of the rails.
+- The robot must be allowed to reset its position on start.
 
 ---
 # TODOs, Notes and Questions
@@ -86,3 +100,5 @@ TODO
 - Component breakdown is there mainly to not have to explain what is what in assembly section.
 - List at start of Components might be redundant?
 - Assembly instructions will **need** pictures.
+- What if the wires come loose when changing the batteries in the pack? Should I assume they are fixed? Or provide instructions on how to reattach them?
+- Grabber original position might need some more guidance (even I have to calibrate it by going down to the top of a piece and counting from there).

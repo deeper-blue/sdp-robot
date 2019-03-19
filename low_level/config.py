@@ -22,8 +22,16 @@ buffer_offset = 2.54
 # Height of the board in cm
 board_height = 0
 
-# Tallest piece in cm
-tallest_piece = 3.7
+# Piece heights in cm
+piece_height = {
+    'p': 3.7,   # Pawn
+    'n': 3.7,   # Knight
+    'b': 3.7,   # Bishop
+    'k': 3.7,   # King
+    'q': 3.7,   # Queen
+    'r': 3.7,   # Rook
+    'default': 3.7
+}
 
 # Wheel circumference in cm
 wheel_circ = 12.66

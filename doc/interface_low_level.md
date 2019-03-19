@@ -92,32 +92,48 @@ Serves to even the load on the arch motors.
 ## Grabber
 Public state:
 
-- `up`: true when the grabber is in the up position, false otherwise.
+- `position`: whether the grabber is in the `up` position, `down` position or `board` position.
 - `on`: true when the electromagnet is turned on, false otherwise.
 
 ### `go_up()`
 Moves the grabber into the up position.
+This position is just below the platform.
 
-**Assumption**:
+**Assumptions**:
 
-- The grabber is in the down position.
+- The grabber is not in the up position.
 
 **Effects**:
 
 - The grabber is in the up position.
-- The state variable `up` is set to true.
+- The state variable `position` is set to `up`.
 
-### `go_down()`
+### `go_down(piece, adjust)`
 Moves the grabber into the down position.
+This position is at the top of a piece identified in the argument.
+There is also an optional adjustment (positive is up) - this is mainly used to compensate for bend in the top rail.
 
-**Assumption**:
+**Assumptions**:
 
-- The grabber is in the up position.
+- The grabber is not in the down position.
 
 **Effects**:
 
 - The grabber is in the down position.
-- The state variable `up` is set to false.
+- The state variable `position` is set to `down`.
+
+### `go_to_board()`
+Moves the grabber into the board position.
+This position is just above the board.
+
+**Assumptions**:
+
+- The grabber is not in the board position.
+
+**Effects**:
+
+- The grabber is in the board position.
+- The state variable `position` is set to `board`.
 
 ### `turn_on()`
 Turns the electromagnet on.

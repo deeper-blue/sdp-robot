@@ -56,45 +56,51 @@ class Server:
         data = message.decode('utf-8').split(";")
 
         # Decide based on first segment and check length, then convert args and invoke
-        if(data[0] == "move_piece" and len(data)==3):
+        if(data[0] == "move_piece" and len(data)==4):
             cell1 = ast.literal_eval(data[1])
             cell2 = ast.literal_eval(data[2])
+            piece_type = data[3]
             try:
                 t0 = time.time()
-                self.hli.move_piece(cell1,cell2)
+                self.hli.move_piece(cell1,cell2, piece_type = piece_type)
                 t1 = time.time()
                 result = "OK (%f s)" % (t1 - t0)
             except Exception as exception:
                 result = "Error: %s" % (repr(exception))
-        elif(data[0] == "move" and len(data)==3):
+        elif(data[0] == "move" and len(data)==4):
             cell1 = ast.literal_eval(data[1])
             cell2 = ast.literal_eval(data[2])
+            piece_type = data[3]
             try:
                 t0 = time.time()
-                self.hli.move(cell1,cell2)
+                self.hli.move(cell1,cell2, piece_type = piece_type)
                 t1 = time.time()
                 result = "OK (%f s)" % (t1 - t0)
             except Exception as exception:
                 result = "Error: %s" % (repr(exception))
-        elif(data[0] == "take_piece" and len(data)==4):
+        elif(data[0] == "take_piece" and len(data)==6):
             cell1 = ast.literal_eval(data[1])
             cell2 = ast.literal_eval(data[2])
             piece_name = ast.literal_eval(data[3])
+            piece_type_A = data[4]
+            piece_type_B = data[5]
             try:
                 t0 = time.time()
-                self.hli.take_piece(cell1,cell2,piece_name)
+                self.hli.take_piece(cell1,cell2,piece_name, piece_type_A = piece_type_A, piece_type_B = piece_type_B)
                 t1 = time.time()
                 result = "OK (%f s)" % (t1 - t0)
             except Exception as exception:
                 result = "Error: %s" % (repr(exception))
-        elif(data[0] == "perform_castling_at" and len(data)==5):
+        elif(data[0] == "perform_castling_at" and len(data)==7):
             cell1 = ast.literal_eval(data[1])
             cell2 = ast.literal_eval(data[2])
             cell3 = ast.literal_eval(data[3])
             cell4 = ast.literal_eval(data[4])
+            piece_type_A = data[4]
+            piece_type_B = data[5]
             try:
                 t0 = time.time()
-                self.hli.perform_castling_at(cell1,cell2,cell3,cell4)
+                self.hli.perform_castling_at(cell1,cell2,cell3,cell4, piece_type_A = piece_type_A, piece_type_B = piece_type_B)
                 t1 = time.time()
                 result = "OK (%f s)" % (t1 - t0)
             except Exception as exception:

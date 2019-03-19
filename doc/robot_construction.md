@@ -65,6 +65,8 @@ Control of the electromagnet is facilitated by a special circuit that allows the
 12. Connect the reb-black wire on the Platform to the yellow-orange wire from the Grabber control circuit (the orientation doesn't matter).
     Again, make sure the connection is made through the centre of the EV3 and circuit holder.
     This way there is minimal chance of the wire interfering with the Platform's movement.
+13. Set up pieces on the board in the chess starting configuration.
+    For best performance, place them as centred on their square as possible.
 
 # Hardware Use
 

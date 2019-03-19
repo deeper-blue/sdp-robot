@@ -37,28 +37,28 @@ class High_Level_Interface:
         self.platform.go_to_cell(cell)
 
     # Pick a piece up (includes waiting)
-    def pick_up(self):
+    def pick_up(self, piece_type = 'default'):
         time.sleep(grabber_wait)
-        self.grabber.go_down(adjust(self.platform.position))
+        self.grabber.go_down(piece_type, adjust(self.platform.position))
         self.grabber.turn_on()
         self.grabber.go_up()
         time.sleep(grabber_wait)
 
     # Put a piece down (includes waiting)
-    def put_down(self):
+    def put_down(self, piece_type = 'default'):
         time.sleep(grabber_wait)
-        self.grabber.go_down(adjust(self.platform.position))
+        self.grabber.go_down(piece_type, adjust(self.platform.position))
         self.grabber.turn_off()
         self.grabber.go_up()
         time.sleep(grabber_wait)
 
     # Move piece to empty square
-    def move_piece(self, cellA, cellB):
-        self.move(cellA, cellB)
+    def move_piece(self, cellA, cellB, piece_type = 'default'):
+        self.move(cellA, cellB, piece_type)
         self.reset()
 
     # Move piece in cellA to cellB
-    def move(self, cellA, cellB):
+    def move(self, cellA, cellB, piece_type = 'default'):
         print("Moving piece at %s to %s\n" % (cellA, cellB))
 
         # Convert cells if their first isn't an integer
@@ -69,9 +69,9 @@ class High_Level_Interface:
 
         # Move to cellA -> pick up -> move to cellB -> place
         self.go_to_cell(cellA, True)
-        self.pick_up()
+        self.pick_up(piece_type)
         self.go_to_cell(cellB, True)
-        self.put_down()
+        self.put_down(piece_type)
 
     # Go to reset by going to preset state
     def reset(self):
@@ -96,29 +96,29 @@ class High_Level_Interface:
 
 
     # Take piece in cellB and replace with one in cellA
-    def take_piece(self, cellA, cellB, piece):
+    def take_piece(self, cellA, cellB, piece, piece_type_A = 'default', piece_type_B = 'default'):
         # Get buffer cell for piece
         buffer_cell = config.buffer_cell(piece)
 
         print("Taking piece, %s, at %s with piece at %s\n" % (piece, cellB, cellA))
-        self.move(cellB, buffer_cell)
-        self.move(cellA, cellB)
+        self.move(cellB, buffer_cell, piece_type_B)
+        self.move(cellA, cellB, piece_type_A)
         self.reset()
 
     # Castling function (May need reworked)
-    def perform_castling_at(self, cellA, cellB, cellC, cellD):
+    def perform_castling_at(self, cellA, cellB, cellC, cellD, piece_type_A = 'default', piece_type_B = 'default'):
         print("Peforming Castling at %s and %s\n" % (cellA, cellB))
 
-        self.move(cellA, cellC)
-        self.move(cellB, cellD)
+        self.move(cellA, cellC, piece_type_A)
+        self.move(cellB, cellD, piece_type_B)
         self.reset()
 
     # En passant from cellA to cellB and taking from cellTake
     def en_passant(self, cellA, cellB, cellTake, piece):
         print("Performing en passant from %s to %s, taking %s from %s" % (cellA, cellB, piece, cellTake))
 
-        self.move(cellA, cellB)
-        self.move(cellTake, config.buffer_cell(piece))
+        self.move(cellA, cellB, 'p')
+        self.move(cellTake, config.buffer_cell(piece), 'p')
         self.reset()
 
 hli = High_Level_Interface(preset_state, arch, platform, grabber)

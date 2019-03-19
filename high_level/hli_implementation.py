@@ -28,47 +28,6 @@ class High_Level_Interface:
         self.platform = platform
         self.grabber = grabber
 
-<<<<<<< HEAD
-    # Move piece to empty square
-    def move_piece(self, cellA, cellB):
-        self.move(cellA, cellB)
-        self.reset()
-
-
-    # Move piece in cellA to cellB
-    def move(self, cellA, cellB):
-        print("Moving piece at %s to %s\n" % (cellA, cellB))
-
-        # Convert cells if their first isn't an integer
-        if not isinstance(cellA[0], int):
-            cellA = config.convert_cell(cellA)
-        if not isinstance(cellB[0], int):
-            cellB = config.convert_cell(cellB)
-
-        # Move to cellA
-        self.arch.go_to_cell(cellA)
-        self.platform.go_to_cell(cellA)
-||||||| merged common ancestors
-    def convert_cell(self, cell):
-        return (ord(cell[0]) - 65, cell[1] - 1)
-
-    # Move piece to empty square
-    def move_piece(self, cellA, cellB):
-        self.move(cellA, cellB)
-        self.reset()
-
-
-    # Move piece in cellA to cellB
-    def move(self, cellA, cellB):
-        print("Moving piece at %s to %s\n" % (cellA, cellB))
-
-        cellA = self.convert_cell(cellA)
-        cellB = self.convert_cell(cellB)
-
-        # Move to cellA
-        self.arch.go_to_cell(cellA)
-        self.platform.go_to_cell(cellA)
-=======
     # Move frame to cell
     def go_to_cell(self, cell, converted = False):
         if not converted:
@@ -76,7 +35,6 @@ class High_Level_Interface:
         self.platform.centre()
         self.arch.go_to_cell(cell)
         self.platform.go_to_cell(cell)
->>>>>>> feature/qa-scripts
 
     # Pick a piece up (includes waiting)
     def pick_up(self):

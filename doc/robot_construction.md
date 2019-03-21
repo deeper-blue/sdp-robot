@@ -54,6 +54,7 @@ Control of the electromagnet is facilitated by a special circuit that allows the
 4. Attach reset barrier to the Arch leg closer to row 1.
 5. Attach strengthening pieces to corners of the Arch.
 6. Attach the EV3 and circuit holder to the top rails.
+    Ensure that the smaller space in the holder is on the smae side as the Arch legs' motor ports.
     **TODO**: this will need a picture, or very long description
 7. Place the Platform on the top rail with its reset button facing toward decreasing rows and the barrier on one of the legs.
     In order to improve wheel alignment, align the ends of one of the axles with the legs of the EV3 and circuit holder.

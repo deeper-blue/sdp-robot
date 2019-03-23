@@ -16,13 +16,13 @@ current_state = ('L', 1)
 class High_Level_Interface:
 
     # Move piece to empty square
-    def move_piece(self, cellA, cellB):
+    def move_piece(self, cellA, cellB, piece_type = 'default'):
         self.move(cellA, cellB)
         self.reset()
 
 
     # Move piece in cellA to cellB
-    def move(self, cellA, cellB):
+    def move(self, cellA, cellB, piece_type = 'default'):
         # Pretend
         print("Moving piece at %s to %s" % (cellA, cellB))
 
@@ -42,7 +42,7 @@ class High_Level_Interface:
         print("Calibrated")
 
     # Take piece in cellB and replace with one in cellA
-    def take_piece(self, cellA, cellB, piece):
+    def take_piece(self, cellA, cellB, piece, piece_type_A = 'default', piece_type_B = 'default'):
         # Get buffer cell for piece
         buffer_cell = config.buffer_cell(piece)
 
@@ -51,7 +51,7 @@ class High_Level_Interface:
         self.reset()
 
     # Castling function (May need reworked)
-    def perform_castling_at(self, cellA, cellB, cellC, cellD):
+    def perform_castling_at(self, cellA, cellB, cellC, cellD, piece, piece_type_A = 'default', piece_type_B = 'default'):
         self.move(cellA, cellC)
         self.move(cellB, cellD)
         self.reset()

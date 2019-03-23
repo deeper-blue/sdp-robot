@@ -126,7 +126,7 @@ class Grabber:
         self.position = 'up'
 
     # Move grabber into the down position
-    def go_down(self):
+    def go_down(self, piece = 'default', adjust = 0):
         # Check not down
         if self.position == 'down':
             print("Warning: Grabber already down.")

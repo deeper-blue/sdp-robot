@@ -6,7 +6,7 @@ Public state:
 - `current_state`: the current state of the board stored as a cell
 - `preset_state`: the preset state of the board stored as a cell
 
-### `move(cellA, cellB)`
+### `move(cellA, cellB, piece_type)`
 Take the current piece at cellA and move it to cellB.
 Would call the respective LLI functions to perform movement. Only used when moving a piece to empty cell.
 

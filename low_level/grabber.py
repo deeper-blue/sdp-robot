@@ -18,8 +18,8 @@ from . import move
 #up_pos = config.grabber_height - (config.board_height + 2 * config.tallest_piece)   # two figures in cm
 up_pos = 1  # at platform in cm
 
-# Grabber down position
-down_pos = config.grabber_height - (config.board_height + config.tallest_piece) # in cm
+# Distance of grabber from board
+board_dist = config.grabber_height - config.board_height
 
 # Grabber board position
 board_pos = config.grabber_height - config.board_height # in cm
@@ -62,20 +62,21 @@ class Thread:
         self.position = 'up'
 
     # Move grabber into the down position
-    def go_down(self, adjust = 0):
+    def go_down(self, piece = 'default', adjust = 0):
         # Check not down
         if self.position == 'down':
             print("Warning: Grabber already down.")
             return
 
-        # Adjust target
-        target = down_pos + adjust
+        # Adjust target for piece height and top rail bend
+        piece_height = config.piece_height.get(piece, config.piece_height['default'])
+        target = board_dist - piece_height + adjust
 
         # Move motor to configured down position
         self.last_error = self.movement.move_to(self.motor, target)
 
         # Print info and update state
-        print("Grabber:\tMoved down (error: %d cm)" % (self.last_error))
+        print("Grabber:\tMoved down to piece '%s' adjusted with %f (error: %d cm)" % (piece, adjust, self.last_error))
         self.position = 'down'
 
     # Move grabber to the board
@@ -100,7 +101,7 @@ class Thread:
         file.close()
 
         # Print info and update state
-        print("Grabber:\t Magnet turned off")
+        print("Grabber:\t Magnet turned on")
         self.on = True
 
     # Turn electromagnet off

@@ -6,7 +6,7 @@ Public state:
 - `current_state`: the current state of the board stored as a cell
 - `preset_state`: the preset state of the board stored as a cell
 
-### `move(cellA, cellB)`
+### `move(cellA, cellB, piece_type)`
 Take the current piece at cellA and move it to cellB.
 Would call the respective LLI functions to perform movement. Only used when moving a piece to empty cell.
 
@@ -19,7 +19,7 @@ Would call the respective LLI functions to perform movement. Only used when movi
 - Piece X is moved from cellA to cellB on the physical board.
 - Board state is updated
 
-### `move_piece(cellA, cellB)`
+### `move_piece(cellA, cellB, piece_type)`
 Moves the piece at cellA onto empty cellB, then go to preset state (reset).
 Would call the respective LLI functions to perform movement. Only used when taking another piece.
 
@@ -32,7 +32,7 @@ Would call the respective LLI functions to perform movement. Only used when taki
 - Piece X is moved from cell to the empty space on the physical board.
 - Board state is updated
 
-### `take_piece(cellA, cellB, piece)`
+### `take_piece(cellA, cellB, piece, piece_type_A, piece_type_B)`
 Take the current piece at cellB, move it to buffer, and replace it with piece at cellB. Then reset.
 The piece is identified by its original position, which is used to compute its buffer position.
 Would call the respective LLI functions to perform movement.
@@ -60,7 +60,7 @@ Would call the respective LLI functions to perform movement.
 
 - Robot is set to preset state.
 
-### `perform_castling_at(cellA, cellB, cellC, cellD)`
+### `perform_castling_at(cellA, cellB, cellC, cellD, piece_type_A, piece_type_B)`
 Performs the castling move on the pieces at cellA and cellB and moves them to cells C and D respectively.
 Would call the respective LLI functions to perform movement.
 

@@ -11,7 +11,7 @@ import ast
 import time
 
 # Server host and port
-HOST = '192.168.105.116'
+HOST = socket.gethostname()
 PORT = 64432
 
 # Accepts connections until terminated externally
@@ -27,13 +27,13 @@ class Server:
     def run(self):
         # Start listening
         self.s.listen(1)
-        print('listening on IP ' + HOST)
+        print('listening on %s:%d ' % (HOST, PORT))
 
         # Accept connections
         while True:
             # Accept connection
             conn, addr = self.s.accept()
-            print('Connected by', addr)
+            print('Connected by %s' % (addr))
 
             # Receive message until empty
             while True:

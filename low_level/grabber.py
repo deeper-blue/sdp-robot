@@ -76,7 +76,7 @@ class Thread:
         self.last_error = self.movement.move_to(self.motor, target)
 
         # Print info and update state
-        print("Grabber:\tMoved down (error: %d cm)" % (self.last_error))
+        print("Grabber:\tMoved down to piece '%s' adjusted with %f (error: %d cm)" % (piece, adjust, self.last_error))
         self.position = 'down'
 
     # Move grabber to the board
@@ -101,7 +101,7 @@ class Thread:
         file.close()
 
         # Print info and update state
-        print("Grabber:\t Magnet turned off")
+        print("Grabber:\t Magnet turned on")
         self.on = True
 
     # Turn electromagnet off

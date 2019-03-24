@@ -10,6 +10,9 @@
 top_bend_range = 55
 top_bend_max = 0.7
 
+# Number of pickup/putdown attempts before user interaction requested
+max_attempts = 5
+
 # Convert cell from HLI format to LLI format
 def convert_cell(cell):
     if isinstance(cell[0], int):

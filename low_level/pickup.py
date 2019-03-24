@@ -12,7 +12,7 @@ class Pickup:
         # Set the sensor
         self.sensor = ev3.UltrasonicSensor(config.pickup_sensor)
 
-    # Return True iff a piece is picked up (present in front of sensor)
+    # Return True iff a piece is picked up (present in front of sensor), False otherwise
     def present(self):
         dist = self.sensor.distance_centimeters
         if dist <= config.pickup_threshold:
@@ -21,3 +21,7 @@ class Pickup:
         else:
             print("Pickup Sensor: piece is absent")
             return False
+
+    # Return False iff a piece is picked up (present in front of sensor), True otherwise
+    def absent(self):
+        return not self.present()

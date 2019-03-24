@@ -13,6 +13,9 @@ accuracy = 0.01
 # Error threshold (in cm)
 threshold = 10.0
 
+# Pickup sensor state
+pickup_present = False
+
 # Dummy Arch
 class Arch:
     # Internal position in cm (along bottom rail)
@@ -163,7 +166,16 @@ class Grabber:
     def print_state(self):
         print("Dummy Grabber: position = %s; on = %s" % (self.position, "true" if self.on else "false"))
 
+# Dummy pickup sensor
+class Pickup:
+    def present(self):
+        return True
+
+    def absent(self):
+        return True
+
 # Instantiate the component objects
 arch = Arch()
 platform = Platform()
 grabber = Grabber()
+pickup = Pickup()

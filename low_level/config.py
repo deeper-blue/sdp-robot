@@ -69,6 +69,12 @@ platform_circ = 12.53
 # Centre of top rail in cm
 top_centre = 17
 
+# Maximum distance reading that still registers as a piece being held (in cm)
+pickup_threshold = 5
+
+# Port for the ultrasonic pickup sensor
+pickup_sensor = 'in4'
+
 #--- End Configuration
 
 #--- Start Processing

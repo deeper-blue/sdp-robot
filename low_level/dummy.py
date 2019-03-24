@@ -174,8 +174,14 @@ class Pickup:
     def absent(self):
         return True
 
+# Dummy resume button
+class Button:
+    def pressed(self):
+        return True
+
 # Instantiate the component objects
 arch = Arch()
 platform = Platform()
 grabber = Grabber()
 pickup = Pickup()
+button = Button()

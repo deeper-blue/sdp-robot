@@ -9,6 +9,9 @@ import time
 from . import config
 from low_level.dummy import arch, platform, grabber, pickup, button
 
+#TODO replace with LLI abstraction
+import ev3dev.ev3 as ev3
+
 preset_state = ('L', 1)
 
 # Time to wait around grabber up/down (in second)

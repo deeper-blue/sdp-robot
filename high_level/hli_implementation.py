@@ -64,6 +64,7 @@ class High_Level_Interface:
                 counter = 0
             else:
                 self.pick_up(piece_type, False)
+                counter += 1
 
     # Put a piece down (includes waiting)
     def put_down(self, piece_type = 'default', check = True):
@@ -90,6 +91,7 @@ class High_Level_Interface:
                 counter = 0
             else:
                 self.put_down(piece_type, False)
+                counter += 1
         counter = 0
 
     # Move piece to empty square

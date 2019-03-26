@@ -7,10 +7,7 @@
 
 import time
 from . import config
-from low_level.dummy import arch, platform, grabber, pickup, button
-
-#TODO replace with LLI abstraction
-import ev3dev.ev3 as ev3
+from low_level.dummy import arch, platform, grabber, pickup, button, sound
 
 preset_state = ('L', 1)
 
@@ -25,13 +22,14 @@ def adjust(plat):
 # Dummy Arch
 class High_Level_Interface:
 
-    def __init__(self, current_state, arch, platform, grabber, pickup, button):
+    def __init__(self, current_state, arch, platform, grabber, pickup, button, sound):
         self.current_state = current_state
         self.arch = arch
         self.platform = platform
         self.grabber = grabber
         self.pickup = pickup
         self.button = button
+        self.sound = sound
 
     # Move frame to cell
     def go_to_cell(self, cell, converted = False):
@@ -59,10 +57,10 @@ class High_Level_Interface:
         while self.pickup.absent():
             if counter >= config.max_attempts:
                 # This was the maximum attempt and it failed -> ask for help and retry
-                ev3.Sound.beep()    #TODO use TTS?
+                self.sound.beep()    #TODO use TTS?
                 while not self.button.pressed():
                     time.sleep(0.01)
-                ev3.Sound.beep()
+                self.sound.beep()
                 counter = 0
             else:
                 self.pick_up(piece_type, False)
@@ -85,10 +83,10 @@ class High_Level_Interface:
         while self.pickup.present():
             if counter >= config.max_attempts:
                 # This was the maximum attempt and it failed -> ask for help and retry
-                ev3.Sound.beep()    #TODO use TTS?
+                self.sound.beep()    #TODO use TTS?
                 while not self.button.pressed():
                     time.sleep(0.01)
-                ev3.Sound.beep()
+                self.sound.beep()
                 counter = 0
             else:
                 self.put_down(piece_type, False)
@@ -163,4 +161,4 @@ class High_Level_Interface:
         self.move(cellTake, config.buffer_cell(piece), 'p')
         self.reset()
 
-hli = High_Level_Interface(preset_state, arch, platform, grabber, pickup, button)
+hli = High_Level_Interface(preset_state, arch, platform, grabber, pickup, button, sound)

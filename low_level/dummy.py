@@ -179,9 +179,15 @@ class Button:
     def pressed(self):
         return True
 
+# Dummy sound
+class Sound:
+    def beep(self):
+        print("BEEP!!")
+
 # Instantiate the component objects
 arch = Arch()
 platform = Platform()
 grabber = Grabber()
 pickup = Pickup()
 button = Button()
+sound = Sound()

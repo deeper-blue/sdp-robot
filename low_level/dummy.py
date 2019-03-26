@@ -169,10 +169,10 @@ class Grabber:
 # Dummy pickup sensor
 class Pickup:
     def present(self):
-        return True
+        return False
 
     def absent(self):
-        return True
+        return False
 
 # Dummy resume button
 class Button:

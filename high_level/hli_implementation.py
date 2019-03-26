@@ -55,23 +55,17 @@ class High_Level_Interface:
 
     # Check whether a piece was successfully picked up
     def check_picked_up(self, piece_type = 'default'):
-        counter = 0
-        while counter < config.max_attempts:
-            # Check for success
-            if self.pickup.present():
-                return
+        counter = 1
+        while self.pickup.absent():
+            if counter >= config.max_attempts:
+                # This was the maximum attempt and it failed -> ask for help and retry
+                ev3.Sound.beep()    #TODO use TTS?
+                while not self.button.pressed():
+                    time.sleep(0.01)
+                ev3.Sound.beep()
+                counter = 0
             else:
-                counter += 1
-
-                # Retry on failure (without nested checking)
                 self.pick_up(piece_type, False)
-
-        # No success -> ask for help and retry (with nested checking)
-        ev3.Sound.beep()    #TODO use TTS?
-        while not self.button.pressed():
-            time.sleep(0.01)
-        time.sleep(0.5)
-        self.pick_up(piece_type, True)
 
     # Put a piece down (includes waiting)
     def put_down(self, piece_type = 'default', check = True):
@@ -87,23 +81,18 @@ class High_Level_Interface:
 
     # Check whether a piece was successfully put down
     def check_put_down(self, piece_type = 'default'):
-        counter = 0
-        while counter < config.max_attempts:
-            # Check for success
-            if self.pickup.absent():
-                return
+        counter = 1
+        while self.pickup.present():
+            if counter >= config.max_attempts:
+                # This was the maximum attempt and it failed -> ask for help and retry
+                ev3.Sound.beep()    #TODO use TTS?
+                while not self.button.pressed():
+                    time.sleep(0.01)
+                ev3.Sound.beep()
+                counter = 0
             else:
-                counter += 1
-
-                # Retry on failure (without nested checking)
                 self.put_down(piece_type, False)
-
-        # No success -> ask for help and retry (with nested checking)
-        ev3.Sound.beep()    #TODO use TTS?
-        while not self.button.pressed():
-            time.sleep(0.01)
-        time.sleep(0.5)
-        self.put_down(piece_type, True)
+        counter = 0
 
     # Move piece to empty square
     def move_piece(self, cellA, cellB, piece_type = 'default'):

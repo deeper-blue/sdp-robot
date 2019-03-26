@@ -37,7 +37,7 @@ piece_height = {
 wheel_circ = 12.66
 
 # Grabber height in cm
-grabber_height = 24
+grabber_height = 28.9
 
 # Grabber wheel circumference in cm
 grabber_circ = 6.6
@@ -68,6 +68,12 @@ platform_circ = 12.53
 
 # Centre of top rail in cm
 top_centre = 17
+
+# Maximum distance reading that still registers as a piece being held (in cm)
+pickup_threshold = 10
+
+# Port for the ultrasonic pickup sensor
+pickup_sensor = 'in4'
 
 #--- End Configuration
 

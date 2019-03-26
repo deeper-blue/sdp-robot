@@ -7,7 +7,7 @@
 
 import time
 from . import config
-from low_level.dummy import arch, platform, grabber
+from low_level.dummy import arch, platform, grabber, pickup, button, sound
 
 preset_state = ('L', 1)
 
@@ -22,11 +22,14 @@ def adjust(plat):
 # Dummy Arch
 class High_Level_Interface:
 
-    def __init__(self, current_state, arch, platform, grabber):
+    def __init__(self, current_state, arch, platform, grabber, pickup, button, sound):
         self.current_state = current_state
         self.arch = arch
         self.platform = platform
         self.grabber = grabber
+        self.pickup = pickup
+        self.button = button
+        self.sound = sound
 
     # Move frame to cell
     def go_to_cell(self, cell, converted = False):
@@ -37,20 +40,59 @@ class High_Level_Interface:
         self.platform.go_to_cell(cell)
 
     # Pick a piece up (includes waiting)
-    def pick_up(self, piece_type = 'default'):
+    def pick_up(self, piece_type = 'default', check = True):
         time.sleep(grabber_wait)
         self.grabber.go_down(piece_type, adjust(self.platform.position))
         self.grabber.turn_on()
         self.grabber.go_up()
         time.sleep(grabber_wait)
 
+        # Only check if requested
+        if check:
+            self.check_picked_up(piece_type)
+
+    # Check whether a piece was successfully picked up
+    def check_picked_up(self, piece_type = 'default'):
+        counter = 1
+        while self.pickup.absent():
+            if counter >= config.max_attempts:
+                # This was the maximum attempt and it failed -> ask for help and retry
+                self.sound.beep()    #TODO use TTS?
+                while not self.button.pressed():
+                    time.sleep(0.01)
+                self.sound.beep()
+                counter = 0
+            else:
+                self.pick_up(piece_type, False)
+                counter += 1
+
     # Put a piece down (includes waiting)
-    def put_down(self, piece_type = 'default'):
+    def put_down(self, piece_type = 'default', check = True):
         time.sleep(grabber_wait)
         self.grabber.go_down(piece_type, adjust(self.platform.position))
         self.grabber.turn_off()
         self.grabber.go_up()
         time.sleep(grabber_wait)
+
+        # Only check if requested
+        if check:
+            self.check_put_down(piece_type)
+
+    # Check whether a piece was successfully put down
+    def check_put_down(self, piece_type = 'default'):
+        counter = 1
+        while self.pickup.present():
+            if counter >= config.max_attempts:
+                # This was the maximum attempt and it failed -> ask for help and retry
+                self.sound.beep()    #TODO use TTS?
+                while not self.button.pressed():
+                    time.sleep(0.01)
+                self.sound.beep()
+                counter = 0
+            else:
+                self.put_down(piece_type, False)
+                counter += 1
+        counter = 0
 
     # Move piece to empty square
     def move_piece(self, cellA, cellB, piece_type = 'default'):
@@ -121,4 +163,4 @@ class High_Level_Interface:
         self.move(cellTake, config.buffer_cell(piece), 'p')
         self.reset()
 
-hli = High_Level_Interface(preset_state, arch, platform, grabber)
+hli = High_Level_Interface(preset_state, arch, platform, grabber, pickup, button, sound)
